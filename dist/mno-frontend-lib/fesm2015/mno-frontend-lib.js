@@ -30,7 +30,7 @@ class MnoFrontendLibComponent {
 }
 MnoFrontendLibComponent.decorators = [
     { type: Component, args: [{
-                selector: 'mno-mno-frontend-lib',
+                selector: 'mno-frontend-lib',
                 template: `
     <p>
       mno-frontend-lib works!

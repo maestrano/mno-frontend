@@ -39,7 +39,7 @@
             };
         MnoFrontendLibComponent.decorators = [
             { type: i0.Component, args: [{
-                        selector: 'mno-mno-frontend-lib',
+                        selector: 'mno-frontend-lib',
                         template: "\n    <p>\n      mno-frontend-lib works!\n    </p>\n  "
                     }] }
         ];

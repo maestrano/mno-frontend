@@ -1,3 +1,3 @@
-export * from './lib/mno-frontend-lib.service';
-export * from './lib/mno-frontend-lib.component';
-export * from './lib/mno-frontend-lib.module';
+export * from './lib/frontend-lib.service';
+export * from './lib/frontend-lib.component';
+export * from './lib/frontend-lib.module';

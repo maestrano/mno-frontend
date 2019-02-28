@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { MnoFrontendLibService } from './mno-frontend-lib.service';
+import { MnoFrontendLibService } from './frontend-lib.service';
 
 describe('MnoFrontendLibService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

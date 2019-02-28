@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { MnoFrontendLibComponent } from './mno-frontend-lib.component';
+import { MnoFrontendLibComponent } from './frontend-lib.component';
 
 @NgModule({
   declarations: [MnoFrontendLibComponent],

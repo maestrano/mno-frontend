@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MnoFrontendLibComponent } from './mno-frontend-lib.component';
+import { MnoFrontendLibComponent } from './frontend-lib.component';
 
 describe('MnoFrontendLibComponent', () => {
   let component: MnoFrontendLibComponent;
