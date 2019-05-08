@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AuthenticationService } from '../../_services/authentication.service';
 
 @Component({
@@ -7,6 +7,7 @@ import { AuthenticationService } from '../../_services/authentication.service';
   styleUrls: ['./login-box.component.css']
 })
 export class LoginBoxComponent implements OnInit {
+  @Input() header: string;
   public email = '';
   public password = '';
 
