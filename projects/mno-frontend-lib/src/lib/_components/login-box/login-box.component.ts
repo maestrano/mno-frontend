@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AuthenticationService } from '../../_services/authentication.service';
+import { User } from '../../_models/user';
 
 @Component({
   selector: 'mno-login-box',
@@ -8,8 +9,11 @@ import { AuthenticationService } from '../../_services/authentication.service';
 })
 export class LoginBoxComponent implements OnInit {
   @Input() header: string;
+  @Output() onLogin = new EventEmitter<User>();
+
   public email = '';
   public password = '';
+  public loading = false;
 
   constructor(
     private auth: AuthenticationService
@@ -19,6 +23,16 @@ export class LoginBoxComponent implements OnInit {
   }
 
   public login() {
-    this.auth.login(this.email, this.password).subscribe();
+    this.loading = true;
+    this.auth.login(this.email, this.password).subscribe(
+      (u: User) => {
+        this.onLogin.emit(u);
+        this.loading = false;
+      }
+    );
+  }
+
+  public onKeydown(event) {
+    if (event.key === "Enter") this.login()
   }
 }
