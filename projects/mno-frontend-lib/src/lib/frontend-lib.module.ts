@@ -1,16 +1,12 @@
 import { NgModule } from '@angular/core';
-import { MnoFrontendLibComponent } from './frontend-lib.component';
-import { ServicesModule } from './_services/services.module';
+import { LoginBoxComponent } from './_components/login-box/login-box.component';
 
 @NgModule({
   declarations: [
-    MnoFrontendLibComponent
-  ],
-  imports: [
-    ServicesModule
+    LoginBoxComponent
   ],
   exports: [
-    MnoFrontendLibComponent
+    LoginBoxComponent
   ]
 })
 export class MnoFrontendLibModule { }

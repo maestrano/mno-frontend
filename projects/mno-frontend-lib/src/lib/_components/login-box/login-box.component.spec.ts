@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MnoFrontendLibComponent } from './frontend-lib.component';
+import { LoginBoxComponent } from './login-box.component';
 
-describe('MnoFrontendLibComponent', () => {
-  let component: MnoFrontendLibComponent;
-  let fixture: ComponentFixture<MnoFrontendLibComponent>;
+describe('LoginBoxComponent', () => {
+  let component: LoginBoxComponent;
+  let fixture: ComponentFixture<LoginBoxComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MnoFrontendLibComponent ]
+      declarations: [ LoginBoxComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MnoFrontendLibComponent);
+    fixture = TestBed.createComponent(LoginBoxComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

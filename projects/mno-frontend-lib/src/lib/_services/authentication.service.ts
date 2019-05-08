@@ -11,7 +11,7 @@ const MNOE_HOST = 'http://localhost:7000/mnoe';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticationServiceService {
+export class AuthenticationService {
 
   constructor(
     private http: HttpClient
@@ -19,9 +19,16 @@ export class AuthenticationServiceService {
 
   public isLoggedOn(): Observable<boolean> {
     const url = [MNOE_HOST, 'jpi/v1/current_user'].join('/');
-    return this.http.get('').pipe(
+    return this.http.get(url).pipe(
       catchError(() => of(false)),
       map((u: User) => !!u)
     );
+  }
+
+  public login(email: string, password: string): Observable<User> {
+    const url = [MNOE_HOST, 'login_url?'].join('/');
+    return this.http.post(url, { username: email, password: password }).pipe(
+      catchError(() => of(null))
+    )
   }
 }
