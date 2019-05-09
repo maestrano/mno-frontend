@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { AuthenticationService } from '../../_services/authentication.service';
+import { AuthenticationService } from '../../_services/authentication/authentication.service';
 import { User } from '../../_models/user';
 
 @Component({
