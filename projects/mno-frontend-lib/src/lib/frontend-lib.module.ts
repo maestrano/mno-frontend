@@ -1,24 +1,32 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
-import { MnoFrontendLibComponent } from './frontend-lib.component';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
 import { FrontendLibConfigService, FrontendLibConfig } from './frontend-lib-config.service';
-import { MnoUserService } from './services/index';
+import { LoginBoxComponent } from './_components/login-box/login-box.component';
 
 @NgModule({
-  declarations: [MnoFrontendLibComponent],
   imports: [
+    CommonModule,
+    FormsModule
   ],
-  exports: [MnoFrontendLibComponent]
+  declarations: [
+    LoginBoxComponent
+  ],
+  exports: [
+    LoginBoxComponent
+  ]
 })
 export class MnoFrontendLibModule {
   static forRoot(config: FrontendLibConfig): ModuleWithProviders {
     return {
       ngModule: MnoFrontendLibModule,
       providers: [
-        MnoUserService,
-        {
-          provide: FrontendLibConfigService,
-          useValue: config
-        }
+        // MnoUserService,
+        // {
+        //   provide: FrontendLibConfigService,
+        //   useValue: config
+        // }
       ]
     };
   }

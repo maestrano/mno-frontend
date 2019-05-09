@@ -6,7 +6,7 @@ describe('FrontendLibConfigService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: FrontendLibConfigService = TestBed.get(FrontendLibConfigService);
+    const service = TestBed.get(FrontendLibConfigService);
     expect(service).toBeTruthy();
   });
 });
