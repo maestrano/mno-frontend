@@ -1,15 +1,12 @@
 import { InjectionToken } from '@angular/core';
 
 export interface FrontendLibConfig {
-  apiHost: {
-    mnoe: string;
-    impac: string;
-  };
-  apiRoot: {
-    mnoeAuth: string;
-    mnoeJpiV1: string;
-    mnoeJpiV2: string;
-    impacV2: string;
+  urls: {
+    auth: {
+      currentUser: string
+      signIn: string
+      signOut: string
+    }
   };
 }
 

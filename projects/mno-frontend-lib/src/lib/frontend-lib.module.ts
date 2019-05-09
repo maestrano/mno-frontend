@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { FrontendLibConfigService, FrontendLibConfig } from './frontend-lib-config.service';
 import { LoginBoxComponent } from './_components/login-box/login-box.component';
+import { AuthenticationService } from './_services/authentication/authentication.service';
 
 @NgModule({
   imports: [
@@ -22,11 +23,11 @@ export class MnoFrontendLibModule {
     return {
       ngModule: MnoFrontendLibModule,
       providers: [
-        // MnoUserService,
-        // {
-        //   provide: FrontendLibConfigService,
-        //   useValue: config
-        // }
+        AuthenticationService,
+        {
+          provide: FrontendLibConfigService,
+          useValue: config
+        }
       ]
     };
   }
