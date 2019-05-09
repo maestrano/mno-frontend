@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { AuthenticationService } from '../../_services/authentication/authentication.service';
-import { User } from '../../_models/user';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
+import { AuthenticationService } from '../../_services/authentication/authentication.service'
+import { User } from '../../_models/user'
 
 @Component({
   selector: 'mno-login-box',
@@ -8,12 +8,12 @@ import { User } from '../../_models/user';
   styleUrls: ['./login-box.component.css']
 })
 export class LoginBoxComponent implements OnInit {
-  @Input() header: string;
-  @Output() onLogin = new EventEmitter<User>();
+  @Input() header: string
+  @Output() loggedIn = new EventEmitter<User>()
 
-  public email = '';
-  public password = '';
-  public loading = false;
+  public email = ''
+  public password = ''
+  public loading = false
 
   constructor(
     private auth: AuthenticationService
@@ -23,16 +23,16 @@ export class LoginBoxComponent implements OnInit {
   }
 
   public login() {
-    this.loading = true;
+    this.loading = true
     this.auth.login(this.email, this.password).subscribe(
       (u: User) => {
-        this.onLogin.emit(u);
-        this.loading = false;
+        this.loggedIn.emit(u)
+        this.loading = false
       }
-    );
+    )
   }
 
   public onKeydown(event) {
-    if (event.key === "Enter") this.login()
+    if (event.key === 'Enter') this.login()
   }
 }

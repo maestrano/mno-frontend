@@ -1,4 +1,4 @@
-import { Resource } from 'ngx-jsonapi';
+import { Resource } from 'ngx-jsonapi'
 
 export class User extends Resource {
   attributes: {

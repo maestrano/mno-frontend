@@ -1,10 +1,10 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { NgModule, ModuleWithProviders } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { FormsModule } from '@angular/forms'
 
-import { FrontendLibConfigService, FrontendLibConfig } from './frontend-lib-config.service';
-import { LoginBoxComponent } from './_components/login-box/login-box.component';
-import { AuthenticationService } from './_services/authentication/authentication.service';
+import { FrontendLibConfigService, FrontendLibConfig } from './frontend-lib-config.service'
+import { LoginBoxComponent } from './_components/login-box/login-box.component'
+import { AuthenticationService } from './_services/authentication/authentication.service'
 
 @NgModule({
   imports: [
@@ -29,6 +29,6 @@ export class MnoFrontendLibModule {
           useValue: config
         }
       ]
-    };
+    }
   }
 }
