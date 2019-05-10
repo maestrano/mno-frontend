@@ -6,6 +6,7 @@
     "@angular/core": "^7.2.0",
     "rxjs": "~6.4.0",
     "rxjs-compat": "^6.4.0",
-    "ngx-jsonapi": "~2.0.2"
+    "ngx-jsonapi": "~2.0.2",
+    "lodash": "^4.17.11"
   }
 }
