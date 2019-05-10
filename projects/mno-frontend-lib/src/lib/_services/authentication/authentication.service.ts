@@ -28,7 +28,7 @@ export class AuthenticationService {
   public fetchCurrentUserId(): Observable<string | null> {
     const url = `${this.libConfig.urls.auth.currentUser}`
     return this.http.get(url, { headers: HEADERS }).pipe(
-      map((res: { current_user: User }) => (res.current_user.logged_in || null) && res.current_user.id),
+      map((res: { current_user: User }) => (_.get(res, 'current_user.logged_in') || null) && res.current_user.id),
       catchError(() => of(null))
     )
   }
