@@ -4,7 +4,7 @@ import { catchError, map } from 'rxjs/operators'
 import { Observable, of } from 'rxjs'
 import * as _ from 'lodash'
 
-import { User } from '../../_models/user'
+import { User } from '../../_models'
 import { FrontendLibConfigService, FrontendLibConfig } from '../../frontend-lib-config.service'
 
 const HEADERS = {

@@ -5,14 +5,14 @@ export class User extends Resource {
   // tslint:disable-next-line:variable-name
   logged_in: boolean
   attributes: {
-    admin_role: string;
-    company: string;
-    email: string;
-    name: string;
-    phone: string;
-    phone_country_code: string;
-    sso_session: string;
-    surname: string;
+    admin_role: string
+    company: string
+    email: string
+    name: string
+    surname: string
+    phone: string
+    phone_country_code: string
+    sso_session: string
   }
 
   constructor(attrs?: Partial<User>) {
