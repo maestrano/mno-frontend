@@ -47,8 +47,14 @@ export class LoginBoxComponent implements OnInit {
   public onKeydown(event, action = 'login') {
     if (event.key != 'Enter') return
     switch(action) {
-      case 'login': this.login()
-      case 'signup': this.signup()
+      case 'login': {
+        this.login()
+        break
+      }
+      case 'signup': {
+        this.signup()
+        break
+      }
       default: return
     }
   }
