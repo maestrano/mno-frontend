@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
 import { AuthenticationService } from '../../_services'
 import { User } from '../../_models'
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'mno-login-box',
@@ -24,12 +26,12 @@ export class LoginBoxComponent implements OnInit {
 
   public login() {
     this.loading = true
-    this.auth.login(this.email, this.password).subscribe(
-      (u: User) => {
-        this.loggedIn.emit(u)
-        this.loading = false
-      }
-    )
+    this.auth.login(this.email, this.password).pipe(
+      catchError((err) => {
+        this.loading = false;
+        return of(err);
+      })
+    ).subscribe((u: User) => this.loggedIn.emit(u));
   }
 
   public onKeydown(event) {
