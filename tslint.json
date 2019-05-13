@@ -4,6 +4,26 @@
     "codelyzer"
   ],
   "rules": {
+    "curly": false,
+    "semicolon": [
+      true,
+      "never"
+    ],
+    "no-string-literal": false,
+    "no-trailing-whitespace": true,
+    "no-var-keyword": true,
+    "no-misused-new": true,
+    "no-shadowed-variable": true,
+    "no-string-throw": true,
+    "no-unnecessary-initializer": true,
+    "no-unused-expression": true,
+    "prefer-const": true,
+    "one-line": [
+      true,
+      "check-else",
+      "check-whitespace",
+      "check-open-brace"
+    ],
     "array-type": false,
     "arrow-parens": false,
     "deprecation": {
@@ -50,10 +70,7 @@
     "no-switch-case-fall-through": true,
     "no-use-before-declare": true,
     "no-var-requires": false,
-    "object-literal-key-quotes": [
-      true,
-      "as-needed"
-    ],
+    "object-literal-key-quotes": false,
     "object-literal-sort-keys": false,
     "ordered-imports": false,
     "quotemark": [
