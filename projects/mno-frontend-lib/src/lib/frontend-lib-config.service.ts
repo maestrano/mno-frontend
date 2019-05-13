@@ -6,6 +6,7 @@ export interface FrontendLibConfig {
       currentUser: string
       signIn: string
       signOut: string
+      signUp: string
     }
   }
 }

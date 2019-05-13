@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
 import { AuthenticationService } from '../../_services'
 import { User } from '../../_models'
-import { catchError } from 'rxjs/operators';
+import { catchError, finalize } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 @Component({
@@ -11,11 +11,14 @@ import { of } from 'rxjs';
 })
 export class LoginBoxComponent implements OnInit {
   @Input() header: string
-  @Output() loggedIn = new EventEmitter<User>()
+  @Output() onLogin = new EventEmitter<User>()
+  @Output() onSignup = new EventEmitter<boolean>()
 
   public email = ''
   public password = ''
+  public company = ''
   public loading = false
+  public signupEnabled = false
 
   constructor(
     private auth: AuthenticationService
@@ -31,10 +34,26 @@ export class LoginBoxComponent implements OnInit {
         this.loading = false;
         return of(err);
       })
-    ).subscribe((u: User) => this.loggedIn.emit(u));
+    ).subscribe((u: User) => this.onLogin.emit(u))
   }
 
-  public onKeydown(event) {
-    if (event.key === 'Enter') this.login()
+  public signup() {
+    this.loading = true
+    this.auth.signup(this.company, this.email).pipe(
+      finalize(() => this.loading = false)
+    ).subscribe(() => this.onSignup.emit(true))
+  }
+
+  public onKeydown(event, action = 'login') {
+    if (event.key != 'Enter') return
+    switch(action) {
+      case 'login': this.login()
+      case 'signup': this.signup()
+      default: return
+    }
+  }
+
+  public toggleSignup(val: boolean) {
+    this.signupEnabled = val
   }
 }
