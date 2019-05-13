@@ -17,9 +17,10 @@ const HEADERS = {
 })
 export class AuthenticationService {
 
-  constructor(@Inject(FrontendLibConfigService) private libConfig: FrontendLibConfig, private http: HttpClient) {
-    this.libConfig = libConfig
-  }
+  constructor(
+    @Inject(FrontendLibConfigService) private libConfig: FrontendLibConfig,
+    private http: HttpClient
+  ) { }
 
   public isLoggedOn(): Observable<boolean> {
     return this.fetchCurrentUserId().pipe(map((id: string | null) => !!id))

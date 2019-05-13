@@ -1,6 +1,7 @@
 import { InjectionToken } from '@angular/core'
 
 export interface FrontendLibConfig {
+  currency: string
   urls: {
     auth: {
       currentUser: string

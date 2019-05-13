@@ -1,11 +1,11 @@
 import { HttpClientTestingModule, HttpTestingController, TestRequest } from '@angular/common/http/testing'
+import { HttpClient } from '@angular/common/http'
 import { TestBed } from '@angular/core/testing'
+import { of } from 'rxjs'
 
+import { User } from '../../_models'
 import { AuthenticationService } from './authentication.service'
 import { FrontendLibConfigService, FrontendLibConfig } from '../../frontend-lib-config.service'
-import { HttpClient } from '@angular/common/http'
-import { of } from 'rxjs'
-import { User } from '../../_models';
 
 const expectedHeaders = (req: TestRequest) => {
   expect(req.request.headers.get('Accept')).toBe('application/json')
@@ -14,6 +14,7 @@ const expectedHeaders = (req: TestRequest) => {
 
 describe('AuthenticationService', () => {
   const libConfigStub: FrontendLibConfig = {
+    currency: 'AUD',
     urls: {
       auth: {
         currentUser: 'current_user',

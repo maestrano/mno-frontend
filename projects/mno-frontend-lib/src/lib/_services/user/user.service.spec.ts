@@ -6,10 +6,12 @@ import { of } from 'rxjs'
 import { User } from '../../_models'
 import { UserService } from './user.service'
 import { AuthenticationService } from '../authentication/authentication.service'
+import { CacheService } from '../cache/cache.service'
 
 describe('UserService', () => {
   const user = new User({ id: '1', is_loading: false })
   let authenticationServiceSpy: jasmine.SpyObj<AuthenticationService>
+  let cacheService: CacheService
   let service: UserService
 
   beforeEach(() => {
@@ -22,17 +24,29 @@ describe('UserService', () => {
         NgxJsonapiModule.forRoot({ url: 'ngx-route/' })
       ],
       providers: [
+        CacheService,
         { provide: AuthenticationService, useValue: authenticationServiceSpy }
       ]
     })
 
     service = TestBed.get(UserService)
+    cacheService = TestBed.get(CacheService)
   })
+
+  afterEach(() => cacheService.resetCache())
 
   it('should be a NgxJsonApi Service', () => {
     expect(service instanceof Service).toBe(true)
     expect(service.resource).toEqual(User)
     expect(service.type).toEqual('users')
+  })
+
+  describe('resetCache()', () => {
+    it('should reset the cache', () => {
+      spyOn(cacheService, 'remove')
+      service.resetCache()
+      expect(cacheService.remove).toHaveBeenCalledWith('users')
+    })
   })
 
   describe('fetch()', () => {
@@ -42,8 +56,17 @@ describe('UserService', () => {
     it('should fetch & emit user to subscribers', () => {
       service.fetch().subscribe(res => {
         expect(res).toEqual(user)
-        expect(service.get).toHaveBeenCalledWith(user.id)
+        expect(service.get).toHaveBeenCalledWith(user.id, { include: ['organizations'] })
       })
+    })
+
+    it('should cache the observable result & return the cached value', () => {
+      service.fetch().subscribe()
+      service.fetch().subscribe()
+      service.fetch().subscribe((cached: User) => {
+        expect(cached).toEqual(user)
+      })
+      expect(service.get).toHaveBeenCalledTimes(1)
     })
 
     it('should update the internal dashboard BehaviourSubject state', () => {
@@ -85,6 +108,21 @@ describe('UserService', () => {
         service.fetch().subscribe(res => invoked++)
         expect(invoked).toEqual(0)
       })
+    })
+  })
+
+  describe('fetchLatest()', () => {
+    beforeEach(() => spyOn(service, 'get').and.returnValue(of(user)))
+
+    it('should fetch the latest value of the user stream', () => {
+      let invoked = 0
+      service.fetchLatest().subscribe((res: User) => {
+        expect(res).toEqual(user)
+        invoked++
+      })
+      service['user'].next(user)
+      service['user'].next(user)
+      expect(invoked).toEqual(1)
     })
   })
 })
