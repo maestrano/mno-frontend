@@ -34,7 +34,8 @@ export class UserService extends Service<User> {
   }
 
   public fetch(): Observable<User> {
-    return this.requestUserDetails().pipe(
+    if (this.user.value) return this.user$
+    else return this.requestUserDetails().pipe(
       tap(user => this.user.next(user)),
       switchMap(() => this.user$)
     )
@@ -45,7 +46,7 @@ export class UserService extends Service<User> {
   }
 
   @Cache(RESOURCE_TYPE, { collection: false })
-  private requestUserDetails(): Observable<User | null> {
+  private requestUserDetails(): Observable<User>
     return this.authenticationService.fetchCurrentUserId().pipe(
       switchMap(id => {
         if (!id) return of(null)

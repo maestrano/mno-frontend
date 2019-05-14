@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
-import { catchError, map } from 'rxjs/operators'
+import { catchError, map, switchMap } from 'rxjs/operators'
 import { Observable, of } from 'rxjs'
 import * as _ from 'lodash'
 
@@ -44,5 +44,14 @@ export class AuthenticationService {
   public logout(): Observable<{}> {
     const url = `${this.libConfig.urls.auth.signOut}`
     return this.http.delete(url, { headers: HEADERS })
+  }
+
+  public signup(company: string, email: string): Observable<any> {
+    const url = `${this.libConfig.urls.auth.signUp}`
+    const body = { user: { company: company, email: email } }
+    return this.http.post(url, body, { headers: HEADERS }).pipe(
+      // Logout to force account confirmation via email link
+      switchMap(() => this.logout())
+    )
   }
 }
