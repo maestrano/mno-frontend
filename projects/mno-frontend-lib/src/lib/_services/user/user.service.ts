@@ -46,7 +46,7 @@ export class UserService extends Service<User> {
   }
 
   @Cache(RESOURCE_TYPE, { collection: false })
-  private requestUserDetails(): Observable<User>
+  private requestUserDetails(): Observable<User> {
     return this.authenticationService.fetchCurrentUserId().pipe(
       switchMap(id => {
         if (!id) return of(null)
