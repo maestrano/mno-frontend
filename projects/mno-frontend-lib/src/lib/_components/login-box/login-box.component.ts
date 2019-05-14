@@ -43,23 +43,4 @@ export class LoginBoxComponent implements OnInit {
       finalize(() => this.loading = false)
     ).subscribe(() => this.onSignup.emit(true))
   }
-
-  public onKeydown(event, action = 'login') {
-    if (event.key != 'Enter') return
-    switch(action) {
-      case 'login': {
-        this.login()
-        break
-      }
-      case 'signup': {
-        this.signup()
-        break
-      }
-      default: return
-    }
-  }
-
-  public toggleSignup(val: boolean) {
-    this.signupEnabled = val
-  }
 }

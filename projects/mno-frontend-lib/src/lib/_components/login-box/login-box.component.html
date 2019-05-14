@@ -3,8 +3,20 @@
     <h5 class="card-header text-center">{{ header }}</h5>
     <div *ngIf="!signupEnabled" class="card-body d-flex flex-column justify-content-between align-items-center">
       <div class="inputs">
-        <input type="email" class="form-control mt-2" [(ngModel)]="email" placeholder="your@email.com" (keydown)="onKeydown($event)">
-        <input type="password" class="form-control mt-2" [(ngModel)]="password" placeholder="Password" (keydown)="onKeydown($event)">
+        <input
+          type="email"
+          class="form-control mt-2"
+          [(ngModel)]="email"
+          placeholder="your@email.com"
+          (keydown)="$event.key === 'Enter' ? login() : null"
+        >
+        <input
+          type="password"
+          class="form-control mt-2"
+          [(ngModel)]="password"
+          placeholder="Password"
+          (keydown)="$event.key === 'Enter' ? login() : null"
+        >
       </div>
 
       <button class="btn btn-primary login-button" (click)="login()" [disabled]="loading">
@@ -14,8 +26,20 @@
 
     <div *ngIf="signupEnabled" class="card-body d-flex flex-column justify-content-between align-items-center">
       <div class="inputs">
-        <input type="text" class="form-control mt-2" [(ngModel)]="company" placeholder="Company" (keydown)="onKeydown($event, 'signup')">
-        <input type="email" class="form-control mt-2" [(ngModel)]="email" placeholder="your@email.com" (keydown)="onKeydown($event, 'signup')">
+        <input
+          type="text"
+          class="form-control mt-2"
+          [(ngModel)]="company"
+          placeholder="Company"
+          (keydown)="$event.key === 'Enter' ? signup() : null"
+        >
+        <input
+          type="email"
+          class="form-control mt-2"
+          [(ngModel)]="email"
+          placeholder="your@email.com"
+          (keydown)="$event.key === 'Enter' ? signup() : null"
+        >
       </div>
 
       <button class="btn btn-primary login-button" (click)="signup()" [disabled]="loading">
@@ -25,11 +49,11 @@
 
     <div class="card-footer text-center small">
       <span *ngIf="!signupEnabled">
-        Don't have an account yet? <a href="javascript:void(0)" (click)="toggleSignup(true)">Register here</a>
+        Don't have an account yet? <a href="javascript:void(0)" (click)="signupEnabled = true">Register here</a>
       </span>
 
       <span *ngIf="signupEnabled">
-        Already have an account? <a href="javascript:void(0)" (click)="toggleSignup(false)">Back to login</a>
+        Already have an account? <a href="javascript:void(0)" (click)="signupEnabled = false">Back to login</a>
       </span>
     </div>
   </div>
