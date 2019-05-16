@@ -2,50 +2,6 @@
   display: contents;
 }
 
-.mno-modal {
-  z-index: 9999;
-  width: 100%;
-  height: 100%;
-  flex: 0 0 100%;
-  max-width: 95%;
-  padding: 0;
-
-  position: fixed;
-  // expanded element should occupy 90% of the screen size
-  max-height: calc(100vh - 10%);
-  // Add some distance from the top of the screen
-  top: 5%;
-  // horizontally center fixed element
-  left: 50%;
-  transform: translateX(-50%) scale(1);
-  animation: expand 0.105s ease-in-out;
-
-  // Smaller screens snap to full screen
-  @media screen and (max-width: 1200px) {
-    max-height: 100%;
-    max-width: 100%;
-    top: 0;
-  }
-
-  .card {
-    cursor: default;
-    position: absolute;
-    height: 100%;
-    background-color: white;
-    overflow: auto;
-    border-radius: 0;
-    transition: none;
-    box-shadow: 2px 3px 11px 3px #909090bf;
-
-    &:hover { transform: none; }
-
-    // Smaller screens snap to full screen
-    @media screen and (max-width: 1200px) {
-      box-shadow: none;
-    }
-  }
-}
-
 div[class*="col-"] {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
@@ -63,9 +19,4 @@ div[class*="col-"] {
   &:hover {
     transform: scale(1.03);
   }
-}
-
-@keyframes expand {
-  from { transform: translateX(-50%) scale(0.5); }
-  to { transform: translateX(-50%) scale(1); }
 }

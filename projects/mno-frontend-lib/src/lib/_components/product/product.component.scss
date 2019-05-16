@@ -2,19 +2,15 @@
   display: contents;
 }
 
-.card-body {
-  height: 100%;
-  padding: 0;
-
-  .card-title {
-    background-color: #5DAEFD;
-    padding: 2px 20px;
-    height: 55px;
-    display: flex;
-    align-items: center;
-  }
-
-  .body-content {
-    padding: 1.25rem;
-  }
+.card-title {
+  background-color: #5DAEFD;
+  padding: 2px 20px;
+  height: 55px;
+  display: flex;
+  align-items: center;
 }
+
+.body-content {
+  padding: 1.25rem;
+}
+

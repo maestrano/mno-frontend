@@ -1,0 +1,10 @@
+<div class="mno-modal" (click)="closed.emit()">
+  <div class="card d-flex justify-content-center" (click)="$event.stopPropagation()">
+    <button type="button" class="close" (click)="closed.emit()">
+      <i class="far fa-times-circle"></i>
+    </button>
+    <div class="card-body">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>
