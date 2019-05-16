@@ -5,7 +5,7 @@ import { AuthenticationService } from './authentication.service'
 import { FrontendLibConfigService, FrontendLibConfig } from '../../frontend-lib-config.service'
 import { HttpClient } from '@angular/common/http'
 import { of } from 'rxjs'
-import { User } from '../../_models';
+import { User } from '../../_models'
 
 const expectedHeaders = (req: TestRequest) => {
   expect(req.request.headers.get('Accept')).toBe('application/json')

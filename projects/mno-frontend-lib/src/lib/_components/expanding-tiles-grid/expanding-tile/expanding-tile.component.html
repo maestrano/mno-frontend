@@ -1,0 +1,12 @@
+<div class="col-xs-6 col-sm-6 col-lg-4 col-xl-3" (click)="expandItem()">
+  <div class="card d-flex justify-content-center">
+    <ng-content></ng-content>
+  </div>
+</div>
+
+<!-- @todo move to component -->
+<div *ngIf="expanded" class="mno-modal" (click)="expandItem()">
+  <div class="card d-flex justify-content-center">
+    <ng-content select="[expanded]"></ng-content>
+  </div>
+</div>

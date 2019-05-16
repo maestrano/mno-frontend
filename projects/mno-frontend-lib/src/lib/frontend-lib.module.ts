@@ -4,8 +4,12 @@ import { HttpClientModule } from '@angular/common/http'
 import { FormsModule } from '@angular/forms'
 
 import { FrontendLibConfigService, FrontendLibConfig } from './frontend-lib-config.service'
-import { LoginBoxComponent } from './_components'
+import { LoginBoxComponent, ProductComponent, ProductsComponent } from './_components'
 import { AuthenticationService, UserService } from './_services'
+import { ProductService } from './_services/product/product.service'
+import { JsonApiHelperService } from './_services/json-api-helper/json-api-helper.service'
+import { ExpandableGridComponent } from './_components/expandable-grid/expandable-grid/expandable-grid.component'
+import { ExpandableItemComponent } from './_components/expandable-grid/expandable-item/expandable-item.component'
 
 @NgModule({
   imports: [
@@ -14,10 +18,23 @@ import { AuthenticationService, UserService } from './_services'
     FormsModule
   ],
   declarations: [
-    LoginBoxComponent
+    LoginBoxComponent,
+    ProductsComponent,
+    ProductComponent,
+    ExpandableGridComponent,
+    ExpandableItemComponent
   ],
   exports: [
-    LoginBoxComponent
+    LoginBoxComponent,
+    ProductsComponent,
+    ProductComponent,
+    ExpandableGridComponent,
+    ExpandableItemComponent,
+  providers: [
+    AuthenticationService,
+    UserService,
+    ProductService,
+    JsonApiHelperService
   ]
 })
 export class MnoFrontendLibModule {
@@ -25,8 +42,6 @@ export class MnoFrontendLibModule {
     return {
       ngModule: MnoFrontendLibModule,
       providers: [
-        AuthenticationService,
-        UserService,
         {
           provide: FrontendLibConfigService,
           useValue: config

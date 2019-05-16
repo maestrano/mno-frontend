@@ -14,17 +14,25 @@ export class UserService extends Service<User> {
   public resource = User
   public type = 'users'
 
-  private user = new BehaviorSubject<User>(null)
-  private user$ = this.user.asObservable()
+  private _user = new BehaviorSubject<User>(null)
+  private user$ = this._user.asObservable()
 
   constructor(private authenticationService: AuthenticationService) {
     super()
   }
 
+  public get user(): User {
+    return this._user.getValue()
+  }
+
+  public set user(val: User) {
+    this._user.next(val)
+  }
+
   public fetch(): Observable<User> {
-    if (this.user.value) return this.user$
+    if (this.user) return this.user$
     else return this.requestUserDetails().pipe(
-      tap(user => this.user.next(user)),
+      tap(user => this.user = user),
       switchMap(() => this.user$)
     )
   }

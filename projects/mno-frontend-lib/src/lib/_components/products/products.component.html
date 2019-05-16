@@ -1,0 +1,16 @@
+<!-- <div class="row products">
+  <mno-product class="col-xs-6 col-sm-6 col-lg-4 col-xl-3 d-flex justify-content-center p-2" *ngFor="let product of products;trackBy: trackByProductId" [product]="product" (selected)="onSelect($event)"></mno-product>
+</div> -->
+
+<mno-expanding-tiles-grid>
+  <mno-expanding-tile *ngFor="let product of products;trackBy: trackByProductId">
+    <div class="d-flex flex-column text-center">
+      <h5 class="card-title mno-truncate mt-2">{{product.name}}</h5>
+      <h6 class="card-subtitle text-muted text-capitalize py-2">{{product.tiny_description}}</h6>
+    </div>
+    <img class="logo" src="{{product.logo}}" alt="{{product.name}}">
+
+    <mno-product expanded [product]="product"></mno-product>
+
+  </mno-expanding-tile>
+</mno-expanding-tiles-grid>

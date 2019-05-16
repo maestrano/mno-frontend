@@ -7,7 +7,7 @@ import { of } from 'rxjs';
 @Component({
   selector: 'mno-login-box',
   templateUrl: './login-box.component.html',
-  styleUrls: ['./login-box.component.css']
+  styleUrls: ['./login-box.component.scss']
 })
 export class LoginBoxComponent implements OnInit {
   @Input() header: string
