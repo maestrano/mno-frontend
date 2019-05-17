@@ -1,0 +1,11 @@
+<ng-container *ngIf="connected;else add_product">
+  <button class="btn" [class.btn-primary]="hasLaunchEvent" [class.btn-success]="!hasLaunchEvent" (click)="onClickLaunch($event)">{{connectedText}}</button>
+</ng-container>
+<ng-template #add_product>
+  <button class="btn btn-primary" (click)="onClickAdd($event)">
+    <mno-loading-spinner *ngIf="connecting;else text" [vhCenter]="false"></mno-loading-spinner>
+    <ng-template #text>
+      <span>{{getAddProductText()}}</span>
+    </ng-template>
+  </button>
+</ng-template>

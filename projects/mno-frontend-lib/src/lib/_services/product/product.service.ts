@@ -23,6 +23,8 @@ export class ProductService extends Service<Product> {
   private _products = new BehaviorSubject<Product[]>([])
   private products$ = this._products.asObservable()
 
+  // @todo leaving this static until either ngxjsonapi fixes nested includes, or we
+  // do something else.
   readonly API_URL = 'mnoe/jpi/v2/products?filter[active]=true&include=values.field,assets'
 
   constructor(
@@ -46,12 +48,6 @@ export class ProductService extends Service<Product> {
     return this.requestAll().pipe(
       tap(products => this.products = products),
       switchMap(() => this.products$)
-    )
-  }
-
-  public getProductByNid(nid: string): Observable<Product> {
-    return this.requestAll().pipe(
-      map(products => products.find(product => product.nid === nid))
     )
   }
 

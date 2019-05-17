@@ -2,6 +2,7 @@ import { NgModule, ModuleWithProviders } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { HttpClientModule } from '@angular/common/http'
 import { FormsModule } from '@angular/forms'
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 
 import { FrontendLibConfigService, FrontendLibConfig } from './frontend-lib-config.service'
 
@@ -18,14 +19,20 @@ import {
   ProductsComponent,
   ExpandingTilesGridComponent,
   ExpandingTileComponent,
-  ModalComponent
+  ModalComponent,
+  ImageCarouselComponent,
+  ProductKeyBenefitsComponent,
+  ProductPricingPlansComponent,
+  AddProductButtonComponent,
+  LoadingSpinnerComponent
 } from './_components'
 
 @NgModule({
   imports: [
     CommonModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   declarations: [
     LoginBoxComponent,
@@ -34,6 +41,11 @@ import {
     ExpandingTilesGridComponent,
     ExpandingTileComponent,
     ModalComponent,
+    ImageCarouselComponent,
+    AddProductButtonComponent,
+    LoadingSpinnerComponent,
+    ProductKeyBenefitsComponent,
+    ProductPricingPlansComponent,
   ],
   exports: [
     LoginBoxComponent,
@@ -41,6 +53,10 @@ import {
     ProductComponent,
     ExpandingTilesGridComponent,
     ModalComponent,
+    ImageCarouselComponent,
+    AddProductButtonComponent,
+    LoadingSpinnerComponent
+  ],
   providers: [
     AuthenticationService,
     UserService,

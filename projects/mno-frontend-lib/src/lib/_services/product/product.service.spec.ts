@@ -1,7 +1,6 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
 import { TestBed } from '@angular/core/testing'
 import { NgxJsonapiModule, Service } from 'ngx-jsonapi'
-import { of } from 'rxjs'
 
 import { Product } from '../../_models'
 import { ProductService, JsonApiHelperService, FormattedJsonApiResponse } from '../../_services'
@@ -66,22 +65,6 @@ describe('ProductService', () => {
       req.flush('some data')
 
       expect(jsonApiHelperServiceSpy.format).toHaveBeenCalledWith('some data')
-    })
-  })
-
-  describe('getProductByNid(nid: string)', () => {
-
-    it('should get product by NID', () => {
-      let invoked = 0
-      productService.getProductByNid('xero').subscribe(product => {
-        expect(product.nid).toEqual('xero')
-        invoked++
-      })
-
-      const req = httpTestingController.expectOne(expectedApiUrl)
-      req.flush('some data')
-
-      expect(invoked).toEqual(1)
     })
   })
 })

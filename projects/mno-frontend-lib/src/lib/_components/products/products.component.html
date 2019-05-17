@@ -1,12 +1,15 @@
-<mno-expanding-tiles-grid>
-  <mno-expanding-tile *ngFor="let product of products;trackBy: trackByProductId">
-    <div class="d-flex flex-column text-center">
-      <h5 class="card-title mno-truncate mt-2">{{product.name}}</h5>
-      <h6 class="card-subtitle text-muted text-capitalize py-2">{{product.tiny_description}}</h6>
-    </div>
-    <img class="logo" src="{{product.logo}}" alt="{{product.name}}">
+<mno-loading-spinner *ngIf="loading;else loaded" size="fa-3x"></mno-loading-spinner>
+<ng-template #loaded>
+  <mno-expanding-tiles-grid>
+    <mno-expanding-tile *ngFor="let product of products;trackBy: trackByProductId">
+      <div class="d-flex flex-column text-center">
+        <h5 class="card-title truncate mt-2">{{product.name}}</h5>
+        <h6 class="card-subtitle truncate text-muted text-capitalize py-2">{{product.tiny_description}}</h6>
+      </div>
+      <img class="logo" src="{{product.logo}}" alt="{{product.name}}">
 
-    <mno-product expanded [product]="product"></mno-product>
+      <mno-product expanded [product]="product"></mno-product>
 
-  </mno-expanding-tile>
-</mno-expanding-tiles-grid>
+    </mno-expanding-tile>
+  </mno-expanding-tiles-grid>
+</ng-template>

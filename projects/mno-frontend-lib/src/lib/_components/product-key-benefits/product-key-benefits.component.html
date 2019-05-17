@@ -1,0 +1,18 @@
+<ng-container *ngIf="keyBenefits.length">
+  <div *ngIf="groups; else listTemplate" class="groups">
+    <div class="row" *ngFor="let group of groups">
+      <div class="col-{{12 / cols}} benefit" *ngFor="let benefit of group">
+        <i class="icon fas fa-2x fa-check-circle mr-3"></i>
+        <span>{{benefit}}</span>
+      </div>
+    </div>
+  </div>
+  <ng-template #listTemplate>
+    <ul class="list-unstyled" [style.columns]="cols">
+      <li class="benefit" *ngFor="let benefit of keyBenefits">
+        <i class="icon fas fa-2x fa-check-circle mr-3"></i>
+        <span>{{benefit}}</span>
+      </li>
+    </ul>
+  </ng-template>
+</ng-container>

@@ -1,0 +1,7 @@
+<ngb-carousel *ngIf="images" class="col-12">
+  <ng-template ngbSlide *ngFor="let image of images; trackBy:identifyCarouselScreen">
+    <div class="d-flex align-items-center justify-content-center h-100">
+      <img [src]="image.url" alt="{{ image.url }}">
+    </div>
+  </ng-template>
+</ngb-carousel>

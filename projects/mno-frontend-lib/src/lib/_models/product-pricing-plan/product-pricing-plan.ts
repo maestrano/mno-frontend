@@ -1,3 +1,5 @@
+import * as _ from 'lodash'
+
 export interface ProductPricingPlanPrice {
   currency: string
   price_cents: number
@@ -27,5 +29,10 @@ export class ProductPricingPlan {
 
   constructor(attrs?: Partial<ProductPricingPlan>) {
     Object.assign(this, attrs)
+  }
+
+  public getPrices(currency: string = _.get(this, 'prices[0].currency')): ProductPricingPlanPrice[] {
+    if (!this.prices) return this.prices
+    return this.prices.filter(p => p.currency === currency)
   }
 }

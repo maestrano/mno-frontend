@@ -8,9 +8,79 @@
   height: 55px;
   display: flex;
   align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  h4, h5 {
+    display: inline-block;
+    margin: 0;
+  }
+
+  .header-desc {
+    display: inline-block;
+    font-size: 16px;
+    margin: 0 20px 0 13px;
+    font-weight: normal;
+    overflow: hidden;
+
+    ::ng-deep {
+      > * {
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      b { font-weight: normal; }
+    }
+  }
 }
 
 .body-content {
-  padding: 1.25rem;
+  padding: 0 1.25rem;
 }
 
+.small-desc-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  > * {
+    display: inline-block;
+    margin: 0;
+  }
+}
+
+.carousel-section {
+  mno-image-carousel {
+    margin: auto;
+    display: block;
+  }
+
+  mno-product-key-benefits {
+    display: flex;
+    align-items: center;
+  }
+
+  @media screen and (max-width: 1200px) {
+    mno-product-key-benefits { display: none; }
+  }
+}
+
+.desc-section {
+  mno-product-key-benefits {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    @media screen and (max-width: 1200px) { display: flex; }
+  }
+}
+
+footer {
+  mno-add-product-button { margin-left: auto; }
+}
+
+mno-add-product-button {
+  height: 40px;
+  width: 250px;
+}

@@ -9,21 +9,19 @@ import { Product } from '../../_models'
 })
 export class ProductsComponent implements OnInit {
   public products: Product[] = []
+  public loading = true
 
   constructor(private productService: ProductService) { }
 
   ngOnInit() {
     this.productService.fetchAll().subscribe(products => {
       this.products = products.concat(products)
+      this.loading = false
       console.log('products', this.products)
     })
   }
 
   public trackByProductId(_idx: number, product: Product) {
     return product.id
-  }
-
-  onSelect(product) {
-    console.log('selected', product)
   }
 }
