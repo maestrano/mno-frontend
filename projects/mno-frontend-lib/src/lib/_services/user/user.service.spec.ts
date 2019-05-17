@@ -6,12 +6,10 @@ import { of } from 'rxjs'
 import { User } from '../../_models'
 import { UserService } from './user.service'
 import { AuthenticationService } from '../authentication/authentication.service'
-import { CacheService } from '../cache/cache.service'
 
 describe('UserService', () => {
   const user = new User({ id: '1', is_loading: false })
   let authenticationServiceSpy: jasmine.SpyObj<AuthenticationService>
-  let cacheService: CacheService
   let service: UserService
 
   beforeEach(() => {
@@ -24,29 +22,17 @@ describe('UserService', () => {
         NgxJsonapiModule.forRoot({ url: 'ngx-route/' })
       ],
       providers: [
-        CacheService,
         { provide: AuthenticationService, useValue: authenticationServiceSpy }
       ]
     })
 
     service = TestBed.get(UserService)
-    cacheService = TestBed.get(CacheService)
   })
-
-  afterEach(() => cacheService.resetCache())
 
   it('should be a NgxJsonApi Service', () => {
     expect(service instanceof Service).toBe(true)
     expect(service.resource).toEqual(User)
     expect(service.type).toEqual('users')
-  })
-
-  describe('resetCache()', () => {
-    it('should reset the cache', () => {
-      spyOn(cacheService, 'remove')
-      service.resetCache()
-      expect(cacheService.remove).toHaveBeenCalledWith('users')
-    })
   })
 
   describe('fetch()', () => {
@@ -71,7 +57,7 @@ describe('UserService', () => {
 
     it('should update the internal dashboard BehaviourSubject state', () => {
       service.fetch().subscribe()
-      expect(service['user']['getValue']()).toEqual(user)
+      expect(service.user).toEqual(user)
     })
 
     it('should multicast new results to all observers until unsubscribed', fakeAsync(() => {
@@ -82,9 +68,9 @@ describe('UserService', () => {
         invoked++
       })
       tick(1000)
-      service['user'].next(newExpectedResult)
+      service['_user'].next(newExpectedResult)
       sub.unsubscribe()
-      service['user'].next(newExpectedResult)
+      service['_user'].next(newExpectedResult)
       expect(invoked).toEqual(2)
     }))
 
@@ -120,8 +106,8 @@ describe('UserService', () => {
         expect(res).toEqual(user)
         invoked++
       })
-      service['user'].next(user)
-      service['user'].next(user)
+      service['_user'].next(user)
+      service['_user'].next(user)
       expect(invoked).toEqual(1)
     })
   })

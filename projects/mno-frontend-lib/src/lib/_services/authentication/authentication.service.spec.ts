@@ -13,7 +13,7 @@ const expectedHeaders = (req: TestRequest) => {
 }
 
 describe('AuthenticationService', () => {
-  const libConfigStub: FrontendLibConfig = {
+  const libConfigStub = {
     currency: 'AUD',
     urls: {
       auth: {

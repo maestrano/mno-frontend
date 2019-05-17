@@ -7,7 +7,6 @@ import { DashboardService } from './dashboard.service'
 import { FrontendLibConfigService } from '../../frontend-lib-config.service'
 import { UserService } from '../user/user.service'
 import { User, Dashboard, Organization } from '../../_models'
-import { CacheService } from '../cache/cache.service'
 
 describe('DashboardService', () => {
   const org = new Organization()
@@ -17,7 +16,6 @@ describe('DashboardService', () => {
   const user = new User({ id: '1', relationships: { organizations } })
   let userServiceSpy: jasmine.SpyObj<UserService>
   let service: DashboardService
-  let cacheService: CacheService
 
   beforeEach(() => {
     userServiceSpy = jasmine.createSpyObj('UserService', ['fetchLatest'])
@@ -30,12 +28,10 @@ describe('DashboardService', () => {
       ],
       providers: [
         { provide: FrontendLibConfigService, useValue: { currency: 'AUD' } },
-        { provide: UserService, useValue: userServiceSpy },
-        CacheService
+        { provide: UserService, useValue: userServiceSpy }
       ]
     })
 
-    cacheService = TestBed.get(CacheService)
     service = TestBed.get(DashboardService)
   })
 
@@ -46,14 +42,16 @@ describe('DashboardService', () => {
   })
 
   describe('add(dashboard: Dashboard)', () => {
-    const dashboard = new Dashboard()
-    dashboard.id = '1'
+    const dashboard = new Dashboard({ id: '1' })
+    const dashboard2 = new Dashboard({ id: '2' })
 
     it('should add the dashboard to the internal dashboards BehaviourSubject state', () => {
-      expect(service['dashboards']['getValue']()).toEqual([])
+      expect(service.dashboards).toEqual([])
       service.add(dashboard)
-      expect(service['dashboards']['getValue']()).toContain(
-        jasmine.objectContaining({ id: dashboard.id })
+      service.add(dashboard2)
+      expect(service.dashboards).toContain(
+        jasmine.objectContaining({ id: dashboard.id }),
+        jasmine.objectContaining({ id: dashboard2.id })
       )
     })
   })
@@ -61,7 +59,6 @@ describe('DashboardService', () => {
   describe('fetchAll()', () => {
     const expectedDashboards = [new Dashboard({ id: '1' }), new Dashboard({ id: '2' })]
     const dashboards = new DocumentCollection<Dashboard>()
-    // let allReqSpy: jasmine.Spy
 
     beforeAll(() => {
       dashboards.is_loading = false
@@ -87,7 +84,7 @@ describe('DashboardService', () => {
 
     it('should update the internal dashboard BehaviourSubject state', () => {
       service.fetchAll().subscribe(() => {
-        expect(service['dashboards']['getValue']()).toEqual(expectedDashboards)
+        expect(service.dashboards).toEqual(expectedDashboards)
       })
     })
 
@@ -105,9 +102,9 @@ describe('DashboardService', () => {
         invoked++
       })
       tick(1000)
-      service['dashboards'].next(newExpectedResult)
+      service['_dashboards'].next(newExpectedResult)
       sub.unsubscribe()
-      service['dashboards'].next(newExpectedResult)
+      service['_dashboards'].next(newExpectedResult)
       expect(invoked).toEqual(2)
     }))
 
@@ -130,7 +127,6 @@ describe('DashboardService', () => {
       spyOn(service, 'new').and.returnValue(newDashboard)
       spyOn(newDashboard, 'save').and.returnValue(of(newDashboard))
       spyOn(service, 'add')
-      spyOn(cacheService, 'update')
     })
 
     it('should create a dashboard', () => {
@@ -152,12 +148,6 @@ describe('DashboardService', () => {
     it('should add the dashboard to internal dashboards BehaviourSubject', () => {
       service.create(params).subscribe(() => {
         expect(service.add).toHaveBeenCalledWith(newDashboard)
-      })
-    })
-
-    it('should update the CacheService dashboards cache', () => {
-      service.create(params).subscribe(() => {
-        expect(cacheService.update).toHaveBeenCalledWith('dashboards', newDashboard)
       })
     })
   })

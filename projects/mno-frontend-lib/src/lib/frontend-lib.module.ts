@@ -7,7 +7,6 @@ import { FrontendLibConfigService, FrontendLibConfig } from './frontend-lib-conf
 import {
   AuthenticationService,
   UserService,
-  CacheService,
   OrganizationService
 } from './_services'
 import { LoginBoxComponent } from './_components'
@@ -27,8 +26,7 @@ import { LoginBoxComponent } from './_components'
   providers: [
     UserService,
     AuthenticationService,
-    OrganizationService,
-    CacheService
+    OrganizationService
   ]
 })
 export class MnoFrontendLibModule {

@@ -7,7 +7,6 @@ import * as _ from 'lodash'
 import { FrontendLibConfigService, FrontendLibConfig } from '../../frontend-lib-config.service'
 import { Dashboard } from '../../_models'
 import { UserService } from '../user/user.service'
-import { Cache, CacheService } from '../cache/cache.service'
 
 const RESOURCE_TYPE = 'dashboards'
 
@@ -26,24 +25,33 @@ export class DashboardService extends Service<Dashboard> {
   public resource = Dashboard
   public type = RESOURCE_TYPE
 
-  private dashboards = new BehaviorSubject<Dashboard[]>([])
-  private dashboards$ = this.dashboards.asObservable()
+  private _dashboards = new BehaviorSubject<Dashboard[]>([])
+  private dashboards$ = this._dashboards.asObservable()
 
   constructor(
     @Inject(FrontendLibConfigService) private libConfig: FrontendLibConfig,
-    private userService: UserService,
-    private cacheService: CacheService
+    private userService: UserService
   ) {
     super()
   }
 
+  public get dashboards(): Dashboard[] {
+    return this._dashboards.getValue()
+  }
+
+  public set dashboards(val: Dashboard[]) {
+    this._dashboards.next(val)
+  }
+
   public add(dashboard: Dashboard) {
-    this.dashboards.next(this.dashboards.getValue().concat(dashboard))
+    this.dashboards = this.dashboards.concat(dashboard)
   }
 
   public fetchAll(): Observable<Dashboard[]> {
+    if (this.dashboards.length) return this.dashboards$
+
     return this.requestAll().pipe(
-      tap(dashboards => this.dashboards.next(dashboards)),
+      tap(dashboards => this.dashboards = dashboards),
       concatMap(() => this.dashboards$)
     )
   }
@@ -67,17 +75,13 @@ export class DashboardService extends Service<Dashboard> {
           ...(params as { name: string, settings: { currency: string } })
         }
         return dashboard.save().pipe(
-          tap(() => {
-            this.add(dashboard)
-            this.cacheService.update(RESOURCE_TYPE, dashboard)
-          }),
+          tap(() => this.add(dashboard)),
           map(() => dashboard)
         )
       })
     )
   }
 
-  @Cache(RESOURCE_TYPE)
   private requestAll(): Observable<Dashboard[]> {
     return this.userService.fetchLatest().pipe(
       concatMap(user => {

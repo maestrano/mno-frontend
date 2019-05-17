@@ -5,7 +5,6 @@ import { tap, switchMap, filter, take } from 'rxjs/operators'
 
 import { User } from '../../_models'
 import { AuthenticationService } from '../authentication/authentication.service'
-import { Cache, CacheService } from '../cache/cache.service'
 import { OrganizationService } from '../organization/organization.service'
 
 const RESOURCE_TYPE = 'users'
@@ -18,25 +17,30 @@ export class UserService extends Service<User> {
   public resource = User
   public type = RESOURCE_TYPE
 
-  private user = new BehaviorSubject<User>(null)
-  private user$ = this.user.asObservable()
+  private _user = new BehaviorSubject<User>(null)
+  private user$ = this._user.asObservable()
 
   constructor(
     private authenticationService: AuthenticationService,
-    private cacheService: CacheService,
     // Ngxjsonapi requires services injected somewhere to be register
-    private _organizationService: OrganizationService) {
+    private _organizationService: OrganizationService
+  ) {
     super()
   }
 
-  public resetCache() {
-    this.cacheService.remove(RESOURCE_TYPE)
+  public get user(): User {
+    return this._user.getValue()
+  }
+
+  public set user(val: User) {
+    this._user.next(val)
   }
 
   public fetch(): Observable<User> {
-    if (this.user.value) return this.user$
-    else return this.requestUserDetails().pipe(
-      tap(user => this.user.next(user)),
+    if (this.user) return this.user$
+
+    return this.requestUserDetails().pipe(
+      tap(user => this.user = user),
       switchMap(() => this.user$)
     )
   }
@@ -45,7 +49,6 @@ export class UserService extends Service<User> {
     return this.fetch().pipe(take(1))
   }
 
-  @Cache(RESOURCE_TYPE, { collection: false })
   private requestUserDetails(): Observable<User> {
     return this.authenticationService.fetchCurrentUserId().pipe(
       switchMap(id => {
