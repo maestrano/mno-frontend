@@ -1,9 +1,10 @@
+import * as _ from 'lodash'
 import { NgModule, ModuleWithProviders } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { HttpClientModule } from '@angular/common/http'
 import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
-import { JsonApiModule } from 'angular2-jsonapi';
+import { JsonApiModule } from 'angular2-jsonapi'
 
 import { FrontendLibConfigService, FrontendLibConfig } from './frontend-lib-config.service'
 
@@ -66,12 +67,19 @@ import {
 })
 export class MnoFrontendLibModule {
   static forRoot(config: FrontendLibConfig): ModuleWithProviders {
+    const defaults = {
+      urls: {
+        products: {
+          defaultPostConnectionRedirectPath: '/dashboard'
+        }
+      }
+    }
     return {
       ngModule: MnoFrontendLibModule,
       providers: [
         {
           provide: FrontendLibConfigService,
-          useValue: config
+          useValue: _.merge({}, config, defaults)
         }
       ]
     }

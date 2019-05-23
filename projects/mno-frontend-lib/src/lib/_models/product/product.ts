@@ -1,9 +1,10 @@
+import { JsonApiModelConfig, JsonApiModel, Attribute, HasMany } from 'angular2-jsonapi'
 import * as _ from 'lodash'
 
 import { ProductValue } from '../product-value/product-value'
 import { ProductAsset } from '../product-assets/product-assets'
 import { ProductPricingPlan } from '../product-pricing-plan/product-pricing-plan'
-import { JsonApiModelConfig, JsonApiModel, Attribute, HasMany } from 'angular2-jsonapi'
+import { ProductInstance } from '../product-instance/product-instance'
 
 @JsonApiModelConfig({
   type: 'products'
@@ -22,11 +23,11 @@ export class Product extends JsonApiModel {
   @Attribute() pricing_plans: ProductPricingPlan[]
   @Attribute() key_benefits: string
 
+  @HasMany() product_instances: ProductInstance[]
   @HasMany() values: ProductValue[]
   @HasMany() assets: ProductAsset[]
 
-  connecting?: boolean
-  // instance?: ProductInstance
+  public connecting?: boolean
 
   public get screenshots(): ProductAsset[] {
     if (!this.assets) return []

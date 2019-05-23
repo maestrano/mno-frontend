@@ -8,6 +8,12 @@ export interface FrontendLibConfig {
       signIn: string
       signOut: string
       signUp: string
+    },
+    products: {
+      defaultPostConnectionRedirectPath?: string
+      connect: string
+      disconnect: string
+      syncAll: string
     }
   }
 }

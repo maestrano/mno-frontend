@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { JsonApiDatastoreConfig, JsonApiDatastore, DatastoreConfig } from 'angular2-jsonapi'
-import { Product, ProductValue, ProductValueField, ProductAsset, User, Organization } from '../../_models'
+import { Product, ProductValue, ProductValueField, ProductAsset, User, Organization, ProductInstance } from '../../_models'
 import { Subscription } from '../../_models/subscription/subscription'
 
 const config: DatastoreConfig = {
@@ -11,6 +11,7 @@ const config: DatastoreConfig = {
     organizations: Organization,
     subscriptions: Subscription,
     products: Product,
+    product_instances: ProductInstance,
     values: ProductValue,
     fields: ProductValueField,
     assets: ProductAsset

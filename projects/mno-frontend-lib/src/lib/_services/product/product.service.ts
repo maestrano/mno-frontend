@@ -13,7 +13,7 @@ export class ProductService {
   private products$ = this._products.asObservable()
 
   constructor(
-    private datastore: Datastore,
+    private datastore: Datastore
   ) {}
 
   public get products(): Product[] {
@@ -34,7 +34,7 @@ export class ProductService {
   }
 
   private requestAll(): Observable<Product[]> {
-    const options = { filter: { active: true }, include: 'values.field,assets' }
+    const options = { filter: { active: true }, include: 'values.field,assets,product_instances' }
     return this.datastore.findAll(Product, options).pipe(
       map(response => this.applyDynamicValues(response.getModels()))
     )

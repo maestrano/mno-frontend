@@ -4118,6 +4118,12 @@ ngx-jsonapi@^2.0.0-rc.4:
     localforage "^1.5.2"
     localforage-getitems "^1.4.2"
 
+ngx-window-token@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/ngx-window-token/-/ngx-window-token-2.0.1.tgz#8f91221af4116aa9f49bb3f7a6f1111639884fba"
+  dependencies:
+    tslib "^1.9.0"
+
 nice-try@^1.0.4:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
