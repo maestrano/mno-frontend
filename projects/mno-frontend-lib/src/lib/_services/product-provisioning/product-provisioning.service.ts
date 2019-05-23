@@ -1,11 +1,11 @@
 import { Injectable, Inject } from '@angular/core'
 import { Observable } from 'rxjs'
+import { tap } from 'rxjs/operators'
 import { WINDOW } from 'ngx-window-token'
 import { SubscriptionService } from '../subscription/subscription.service'
 import { Product, Subscription, ProductInstance } from '../../_models'
 import { UserService } from '../user/user.service'
 import { FrontendLibConfigService, FrontendLibConfig } from '../../frontend-lib-config.service'
-import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'

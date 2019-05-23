@@ -1,5 +1,4 @@
 import { JsonApiModel, BelongsTo, JsonApiModelConfig, Attribute } from 'angular2-jsonapi'
-import { ProductValue } from '../product-value/product-value'
 
 @JsonApiModelConfig({
   type: 'fields'
@@ -14,6 +13,4 @@ export class ProductValueField extends JsonApiModel {
   @Attribute() position?: number
   @Attribute() section?: string
   @Attribute() visible?: boolean
-
-  @BelongsTo() value: ProductValue
 }

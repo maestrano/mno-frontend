@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 import { concatMap } from 'rxjs/operators'
-import { Datastore } from '../../_services'
+import { Datastore } from '../../_services/datastore/datastore.service'
 import { Subscription, Product, User, Organization } from '../../_models'
 
 interface SubscriptionRelationships {

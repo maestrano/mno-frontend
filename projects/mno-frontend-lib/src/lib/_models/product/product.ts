@@ -23,9 +23,9 @@ export class Product extends JsonApiModel {
   @Attribute() pricing_plans: ProductPricingPlan[]
   @Attribute() key_benefits: string
 
-  @HasMany() product_instances: ProductInstance[]
-  @HasMany() values: ProductValue[]
-  @HasMany() assets: ProductAsset[]
+  @HasMany() product_instances: ProductInstance[] = []
+  @HasMany() values: ProductValue[] = []
+  @HasMany() assets: ProductAsset[] = []
 
   public connecting?: boolean
 

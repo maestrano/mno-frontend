@@ -1,5 +1,4 @@
-import { JsonApiModel, JsonApiModelConfig, BelongsTo, Attribute } from 'angular2-jsonapi'
-import { Product } from '../product/product'
+import { JsonApiModel, JsonApiModelConfig, Attribute } from 'angular2-jsonapi'
 
 @JsonApiModelConfig({
   type: 'assets'
@@ -10,6 +9,4 @@ export class ProductAsset extends JsonApiModel {
   @Attribute() position: number
   @Attribute() url: string
   @Attribute() width: string
-
-  @BelongsTo() product: Product
 }
