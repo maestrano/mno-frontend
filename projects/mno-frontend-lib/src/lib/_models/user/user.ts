@@ -1,22 +1,18 @@
-import { Resource } from 'ngx-jsonapi'
+import { JsonApiModel, JsonApiModelConfig, Attribute, HasMany } from 'angular2-jsonapi'
+import { Organization } from '../organization/organization'
 
-export class User extends Resource {
-  id: string
-  // tslint:disable-next-line:variable-name
-  logged_in: boolean
-  attributes: {
-    admin_role: string
-    company: string
-    email: string
-    name: string
-    surname: string
-    phone: string
-    phone_country_code: string
-    sso_session: string
-  }
+@JsonApiModelConfig({
+  type: 'users'
+})
+export class User extends JsonApiModel {
+  @Attribute() admin_role: string
+  @Attribute() company: string
+  @Attribute() email: string
+  @Attribute() name: string
+  @Attribute() surname: string
+  @Attribute() phone: string
+  @Attribute() phone_country_code: string
+  @Attribute() sso_session: string
 
-  constructor(attrs?: Partial<User>) {
-    super()
-    Object.assign(this, attrs)
-  }
+  @HasMany() organizations: Organization
 }
