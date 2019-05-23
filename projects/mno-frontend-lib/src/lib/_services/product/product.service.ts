@@ -1,38 +1,20 @@
 import { Injectable } from '@angular/core'
-import { HttpClient } from '@angular/common/http'
-import { Service, Autoregister } from 'ngx-jsonapi'
-import { IDataCollection } from 'ngx-jsonapi/interfaces/data-collection'
 import { BehaviorSubject, Observable } from 'rxjs'
 import { map, tap, switchMap } from 'rxjs/operators'
 
 import { Product, ProductValue } from '../../_models'
-import { JsonApiHelperService } from '../json-api-helper/json-api-helper.service'
+import { Datastore } from '../datastore/datastore.service'
 
-const RESOURCE_TYPE = 'products'
-const HEADERS = {
-  'Accept': 'application/vnd.api+json',
-  'Content-Type': 'application/vnd.api+json'
-}
-
-@Injectable()
-@Autoregister()
-export class ProductService extends Service<Product> {
-  public resource = Product
-  public type = RESOURCE_TYPE
-
+@Injectable({
+  providedIn: 'root'
+})
+export class ProductService {
   private _products = new BehaviorSubject<Product[]>([])
   private products$ = this._products.asObservable()
 
-  // @todo leaving this static until either ngxjsonapi fixes nested includes, or we
-  // do something else.
-  readonly API_URL = 'mnoe/jpi/v2/products?filter[active]=true&include=values.field,assets'
-
   constructor(
-    private http: HttpClient,
-    private jsonApiHelperService: JsonApiHelperService,
-  ) {
-    super()
-  }
+    private datastore: Datastore,
+  ) {}
 
   public get products(): Product[] {
     return this._products.getValue()
@@ -42,7 +24,7 @@ export class ProductService extends Service<Product> {
     this._products.next(val)
   }
 
-  public fetchAll(): Observable<Product[]> {
+  public fetchAll() {
     if (this.products.length) return this.products$
 
     return this.requestAll().pipe(
@@ -52,18 +34,16 @@ export class ProductService extends Service<Product> {
   }
 
   private requestAll(): Observable<Product[]> {
-    // Query JsonApi direct as NgxJsonApi nested includes are not working
-    return this.http.get(this.API_URL, { headers: HEADERS }).pipe(
-      map((response: IDataCollection) => {
-        return this.jsonApiHelperService.format(response).data.map(data => {
-          return this.applyDynamicValues(data)
-        })
-      })
+    const options = { filter: { active: true }, include: 'values.field,assets' }
+    return this.datastore.findAll(Product, options).pipe(
+      map(response => this.applyDynamicValues(response.getModels()))
     )
   }
 
-  private applyDynamicValues(product: Product): Product {
-    product.values.forEach((value: ProductValue) => product[value.field.nid] = value.data)
-    return new Product(product)
+  private applyDynamicValues(products: Product[]): Product[] {
+    return products.map(product => {
+      product.values.forEach((value: ProductValue) => product[value.field.nid] = value.data)
+      return product
+    })
   }
 }

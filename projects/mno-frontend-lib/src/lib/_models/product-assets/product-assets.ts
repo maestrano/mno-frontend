@@ -1,17 +1,15 @@
-export class ProductAsset {
-  created_at: string
-  data_content_type: string
-  data_file_name: string
-  data_file_size: number
-  field_name: string
-  height: string
-  id: string
-  position: number
-  updated_at: string
-  url: string
-  width: string
+import { JsonApiModel, JsonApiModelConfig, BelongsTo, Attribute } from 'angular2-jsonapi'
+import { Product } from '../product/product'
 
-  constructor(attrs?: Partial<ProductAsset>) {
-    Object.assign(this, attrs)
-  }
+@JsonApiModelConfig({
+  type: 'assets'
+})
+export class ProductAsset extends JsonApiModel {
+  @Attribute() field_name: string
+  @Attribute() height: string
+  @Attribute() position: number
+  @Attribute() url: string
+  @Attribute() width: string
+
+  @BelongsTo() product: Product
 }

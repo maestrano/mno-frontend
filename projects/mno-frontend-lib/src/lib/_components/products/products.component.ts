@@ -15,9 +15,9 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit() {
     this.productService.fetchAll().subscribe(products => {
-      this.products = products.concat(products)
+      this.products = products
       this.loading = false
-      console.log('products', this.products)
+      console.log('products', products)
     })
   }
 

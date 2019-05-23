@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common'
 import { HttpClientModule } from '@angular/common/http'
 import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
+import { JsonApiModule } from 'angular2-jsonapi';
 
 import { FrontendLibConfigService, FrontendLibConfig } from './frontend-lib-config.service'
 
@@ -10,7 +11,6 @@ import {
   AuthenticationService,
   UserService,
   ProductService,
-  JsonApiHelperService
 } from './_services'
 
 import {
@@ -32,7 +32,8 @@ import {
     CommonModule,
     HttpClientModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    JsonApiModule
   ],
   declarations: [
     LoginBoxComponent,
@@ -60,8 +61,7 @@ import {
   providers: [
     AuthenticationService,
     UserService,
-    ProductService,
-    JsonApiHelperService
+    ProductService
   ]
 })
 export class MnoFrontendLibModule {

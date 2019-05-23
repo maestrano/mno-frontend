@@ -1,9 +1,13 @@
+import { JsonApiModel, BelongsTo, JsonApiModelConfig, Attribute } from 'angular2-jsonapi'
+import { Product } from '../product/product'
 import { ProductValueField } from '../product-value-field/product-value-field'
 
-export class ProductValue {
-  id: string
-  data: string
-  created_at: string
-  updated_at: string
-  field: ProductValueField
+@JsonApiModelConfig({
+  type: 'values'
+})
+export class ProductValue extends JsonApiModel {
+  @Attribute() data: string
+
+  @BelongsTo() product: Product
+  @BelongsTo() field: ProductValueField
 }
