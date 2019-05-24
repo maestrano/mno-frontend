@@ -28,22 +28,31 @@ export class Product extends JsonApiModel {
   @HasMany() assets: ProductAsset[] = []
 
   public connecting?: boolean
+  private _screenshots: ProductAsset[] = []
+  private _pricingPlans: ProductPricingPlan[]
+  private _keyBenefits: string[]
 
-  public get screenshots(): ProductAsset[] {
-    if (!this.assets) return []
-    return _.sortBy(this.assets.filter(a => a.field_name.toLowerCase().includes('screenshot')), 'position')
+  public get instance(): ProductInstance | undefined {
+    return this.product_instances[0]
   }
 
-  public get pricingPlans(): ProductPricingPlan[] {
+  public screenshots(): ProductAsset[] {
+    if (this._screenshots) return this._screenshots
+    const screenshots = this.assets.filter(a => a.field_name.toLowerCase().includes('screenshot'))
+    return this._screenshots = _.sortBy(screenshots, 'position')
+  }
+
+  public pricingPlans(): ProductPricingPlan[] {
+    if (this._pricingPlans) return this._pricingPlans
+
     const pricings = this.pricing_plans.map(p => new ProductPricingPlan(p))
-    if (!pricings) return pricings
-
-    return pricings.sort((s1, s2) => s1.position - s2.position)
+    return this._pricingPlans = pricings.sort((s1, s2) => s1.position - s2.position)
   }
 
-  public get keyBenefits() {
+  public keyBenefits(): string[] {
+    if (this._keyBenefits && this._keyBenefits.length) return this._keyBenefits
     try {
-      return JSON.parse(this.key_benefits) || []
+      return this._keyBenefits = JSON.parse(this.key_benefits) || []
     } catch (error) {
       return []
     }

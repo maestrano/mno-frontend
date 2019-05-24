@@ -24,9 +24,7 @@ export class ProductService {
     this._products.next(val)
   }
 
-  public fetchAll() {
-    if (this.products.length) return this.products$
-
+  public fetchAll(): Observable<Product[]> {
     return this.requestAll().pipe(
       tap(products => this.products = products),
       switchMap(() => this.products$)
@@ -34,7 +32,7 @@ export class ProductService {
   }
 
   private requestAll(): Observable<Product[]> {
-    const options = { filter: { active: true }, include: 'values.field,assets,product_instances' }
+    const options = { filter: { active: true }, include: 'values.field,assets,product_instances.sync_status' }
     return this.datastore.findAll(Product, options).pipe(
       map(response => this.applyDynamicValues(response.getModels()))
     )

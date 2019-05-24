@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { BehaviorSubject, Observable, of } from 'rxjs'
 import { tap, switchMap } from 'rxjs/operators'
 
-import { User } from '../../_models'
+import { User, Organization } from '../../_models'
 import { AuthenticationService } from '../authentication/authentication.service'
 import { Datastore } from '../datastore/datastore.service'
 
@@ -26,7 +26,7 @@ export class UserService {
     this._user.next(val)
   }
 
-  public get currentOrganization() {
+  public get currentOrganization(): Organization {
     return this.user.organizations[0]
   }
 
