@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { BehaviorSubject, Observable } from 'rxjs'
 import { map, tap, switchMap } from 'rxjs/operators'
 
-import { Product, ProductValue } from '../../_models'
+import { Product, ProductValue, ProductPricing } from '../../_models'
 import { Datastore } from '../datastore/datastore.service'
 
 @Injectable({
@@ -29,6 +29,14 @@ export class ProductService {
       tap(products => this.products = products),
       switchMap(() => this.products$)
     )
+  }
+
+  // Get the first pricing plan for a product with `single_billing_enabled: true`,
+  // then instantiate the ProductPricing JsonApiModel for creating the subscription rel.
+  public getProductPricing(product: Product): ProductPricing | undefined {
+    if (!product.single_billing_enabled) return
+    const pricingPlan = product.pricing_plans.find(p => p.position === 1)
+    return new ProductPricing(this.datastore, pricingPlan)
   }
 
   private requestAll(): Observable<Product[]> {

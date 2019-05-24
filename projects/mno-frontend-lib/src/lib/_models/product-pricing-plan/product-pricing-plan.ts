@@ -5,6 +5,11 @@ export interface ProductPricingPlanPrice {
   price_cents: number
 }
 
+// product 'pricing_plans' are a wrapper for product 'product_pricings'.
+// product_pricing are returned on products as an attribute with locals
+// and product markup handled.
+// To persist changes / create relationships for this model, do so via
+// ProductPricing (product-pricing.ts), which extends JsonApiModel.
 export class ProductPricingPlan {
   created_at: string
   description: string

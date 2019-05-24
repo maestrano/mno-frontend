@@ -22,6 +22,7 @@ export class Product extends JsonApiModel {
   @Attribute() field_type: string
   @Attribute() pricing_plans: ProductPricingPlan[]
   @Attribute() key_benefits: string
+  @Attribute() single_billing_enabled: boolean
 
   @HasMany() product_instances: ProductInstance[] = []
   @HasMany() values: ProductValue[] = []

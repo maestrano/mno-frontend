@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 import { switchMap } from 'rxjs/operators'
 import { Datastore } from '../../_services/datastore/datastore.service'
-import { Subscription, Product, User, Organization } from '../../_models'
+import { Subscription, Product, User, Organization, ProductPricing } from '../../_models'
 
 interface SubscriptionRelationships {
   product: Product
   user: User
   organization: Organization
-  // pricing?: any
+  product_pricing?: ProductPricing
 }
 
 @Injectable({
