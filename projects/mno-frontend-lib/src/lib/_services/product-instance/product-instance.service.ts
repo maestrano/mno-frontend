@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs'
 import { tap, switchMap, map } from 'rxjs/operators'
 import { ProductInstance } from '../../_models'
 import { Datastore } from '../datastore/datastore.service'
-import { UserService } from '../user/user.service'
+import { OrganizationService } from '../organization/organization.service'
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class ProductInstanceService {
 
   constructor(
     private datastore: Datastore,
-    private userService: UserService
+    private organizationService: OrganizationService
   ) { }
 
   public get productInstances(): ProductInstance[] {
@@ -33,11 +33,13 @@ export class ProductInstanceService {
   }
 
   private requestAll(): Observable<ProductInstance[]> {
-    // TODO: move currentOrganization to observable stream
-    const currentOrg = this.userService.currentOrganization
-    const options = { include: 'product,sync_status', filter: { organization_id: currentOrg.id } }
-    return this.datastore.findAll(ProductInstance, options).pipe(
-      map(response => response.getModels())
+    return this.organizationService.fetchCurrent().pipe(
+      switchMap(org => {
+        const options = { include: 'product,sync_status', filter: { organization_id: org.id } }
+        return this.datastore.findAll(ProductInstance, options).pipe(
+          map(response => response.getModels())
+        )
+      })
     )
   }
 }

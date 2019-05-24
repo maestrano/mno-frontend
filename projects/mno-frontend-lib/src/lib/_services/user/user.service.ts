@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core'
 import { BehaviorSubject, Observable, of } from 'rxjs'
-import { tap, switchMap } from 'rxjs/operators'
+import { tap, switchMap, take } from 'rxjs/operators'
 
-import { User, Organization } from '../../_models'
+import { User } from '../../_models'
 import { AuthenticationService } from '../authentication/authentication.service'
 import { Datastore } from '../datastore/datastore.service'
 
@@ -26,10 +26,6 @@ export class UserService {
     this._user.next(val)
   }
 
-  public get currentOrganization(): Organization {
-    return this.user.organizations[0]
-  }
-
   public fetch(): Observable<User> {
     if (this.user) return this.user$
 
@@ -37,6 +33,10 @@ export class UserService {
       tap(user => this.user = user),
       switchMap(() => this.user$)
     )
+  }
+
+  public fetchLatest(): Observable<User> {
+    return this.fetch().pipe(take(1))
   }
 
   private requestUserDetails() {

@@ -14,5 +14,5 @@ export class User extends JsonApiModel {
   @Attribute() phone_country_code: string
   @Attribute() sso_session: string
 
-  @HasMany() organizations: Organization
+  @HasMany() organizations: Organization[]
 }

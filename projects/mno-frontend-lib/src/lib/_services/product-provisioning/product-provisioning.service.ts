@@ -1,11 +1,12 @@
 import { Injectable, Inject } from '@angular/core'
 import { Observable } from 'rxjs'
-import { tap } from 'rxjs/operators'
+import { tap, switchMap } from 'rxjs/operators';
 import { WINDOW } from 'ngx-window-token'
 import { SubscriptionService } from '../subscription/subscription.service'
 import { Product, Subscription, ProductInstance } from '../../_models'
-import { UserService } from '../user/user.service'
 import { FrontendLibConfigService, FrontendLibConfig } from '../../frontend-lib-config.service'
+import { UserService } from '../user/user.service'
+import { OrganizationService } from '../organization/organization.service'
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ import { FrontendLibConfigService, FrontendLibConfig } from '../../frontend-lib-
 export class ProductProvisioningService {
   constructor(
     private userService: UserService,
+    private organizationService: OrganizationService,
     private subscriptionService: SubscriptionService,
     @Inject(FrontendLibConfigService) private libConfig: FrontendLibConfig,
     @Inject(WINDOW) private window: any
@@ -20,10 +22,13 @@ export class ProductProvisioningService {
 
   public connect(product: Product): Observable<Subscription> {
     const user = this.userService.user
-    const organization = this.userService.currentOrganization
-    // TODO: product pricing
-    return this.subscriptionService.create({ product, user, organization }).pipe(
-      tap(subscription => this.redirectForConnection(subscription.product_instance))
+    return this.organizationService.fetchCurrentLatest().pipe(
+      switchMap(organization => {
+        // TODO: product pricing
+        return this.subscriptionService.create({ product, user, organization }).pipe(
+          tap(subscription => this.redirectForConnection(subscription.product_instance))
+        )
+      })
     )
   }
 

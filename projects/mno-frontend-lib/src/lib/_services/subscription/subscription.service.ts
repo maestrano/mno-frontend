@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
-import { concatMap } from 'rxjs/operators'
+import { switchMap } from 'rxjs/operators'
 import { Datastore } from '../../_services/datastore/datastore.service'
 import { Subscription, Product, User, Organization } from '../../_models'
 
@@ -19,7 +19,7 @@ export class SubscriptionService {
 
   public create(rels: SubscriptionRelationships): Observable<Subscription> {
     return this.datastore.createRecord(Subscription, rels).save().pipe(
-      concatMap((sub) => this.datastore.findRecord(Subscription, sub.id, { include: 'product_instance' }))
+      switchMap((sub) => this.datastore.findRecord(Subscription, sub.id, { include: 'product_instance' }))
     )
   }
 }
