@@ -3599,12 +3599,6 @@ license-webpack-plugin@2.1.0:
     "@types/webpack-sources" "^0.1.5"
     webpack-sources "^1.2.0"
 
-lie@3.1.1:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/lie/-/lie-3.1.1.tgz#9a436b2cc7746ca59de7a41fa469b3efb76bd87e"
-  dependencies:
-    immediate "~3.0.5"
-
 lie@~3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/lie/-/lie-3.3.0.tgz#dcf82dee545f46074daf200c7c1c5a08e0f40f6a"
@@ -3650,18 +3644,6 @@ loader-utils@1.2.3, loader-utils@^1.0.1, loader-utils@^1.0.2, loader-utils@^1.1.
     big.js "^5.2.2"
     emojis-list "^2.0.0"
     json5 "^1.0.1"
-
-localforage-getitems@^1.4.2:
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/localforage-getitems/-/localforage-getitems-1.4.2.tgz#bddd3e716e7df339dc5a5cc26e2dd1decec76606"
-  dependencies:
-    localforage ">=1.4.0"
-
-localforage@>=1.4.0, localforage@^1.5.2:
-  version "1.7.3"
-  resolved "https://registry.yarnpkg.com/localforage/-/localforage-1.7.3.tgz#0082b3ca9734679e1bd534995bdd3b24cf10f204"
-  dependencies:
-    lie "3.1.1"
 
 locate-path@^2.0.0:
   version "2.0.0"
@@ -4110,13 +4092,6 @@ ng-packagr@^4.2.0:
     stylus "^0.54.5"
     uglify-js "^3.0.7"
     update-notifier "^2.3.0"
-
-ngx-jsonapi@^2.0.0-rc.4:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/ngx-jsonapi/-/ngx-jsonapi-2.0.2.tgz#6bfaf01700053285109b8bc23873e0098be0381c"
-  dependencies:
-    localforage "^1.5.2"
-    localforage-getitems "^1.4.2"
 
 ngx-window-token@^2.0.1:
   version "2.0.1"
