@@ -13,6 +13,7 @@ export interface FrontendLibConfig {
       defaultPostConnectionRedirectPath?: string
       connect: string
       disconnect: string
+      sso: string
       syncAll: string
     }
   }

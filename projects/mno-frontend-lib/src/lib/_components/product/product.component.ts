@@ -34,5 +34,8 @@ export class ProductComponent {
       .subscribe()
   }
 
-  public launchProduct() {}
+  public launchProduct() {
+    if (!this.isConnected()) return
+    this.productProvisioningService.redirectToApp(this.product.instance)
+  }
 }

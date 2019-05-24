@@ -39,6 +39,12 @@ export class ProductProvisioningService {
     this.window.location.href = this.getConnectUrl(productInstance, path)
   }
 
+  // Log user into app through SSO workflow, or visit app if already logged in
+  public redirectToApp(productInstance: ProductInstance): void {
+    const path = this.libConfig.urls.products.sso.replace(':id', productInstance.uid)
+    this.window.open(path, '_blank')
+  }
+
   private getConnectUrl(productInstance: ProductInstance, postConnectionRedirectPath: string): string {
     const url = this.libConfig.urls.products.connect.replace(':id', productInstance.uid)
     // Open dashboard wizard after first app connect, after which, we must open the loading bar.
