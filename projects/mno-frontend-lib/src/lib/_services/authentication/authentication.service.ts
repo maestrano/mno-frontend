@@ -6,7 +6,7 @@ import * as _ from 'lodash'
 
 import { User } from '../../_models'
 import { FrontendLibConfigService, FrontendLibConfig } from '../../frontend-lib-config.service'
-import { Datastore } from '../datastore/datastore.service'
+import { DatastoreService } from '../datastore/datastore.service'
 
 const HEADERS = {
   'Accept': 'application/json',
@@ -26,7 +26,7 @@ export class AuthenticationService {
   constructor(
     @Inject(FrontendLibConfigService) private libConfig: FrontendLibConfig,
     private http: HttpClient,
-    private datastore: Datastore) {
+    private datastore: DatastoreService) {
     this.libConfig = libConfig
   }
 
@@ -49,7 +49,7 @@ export class AuthenticationService {
     )
   }
 
-  public logout(): Observable<{}> {
+  public logout(): Observable<any> {
     const url = `${this.libConfig.urls.auth.signOut}`
     return this.http.delete(url, { headers: HEADERS })
   }

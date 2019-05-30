@@ -1,7 +1,8 @@
-import { ProductPricing } from './product-pricing';
+import { ProductPricing } from './product-pricing'
+import { itShouldBehaveLikeAJsonApiModel } from '../../../../testing/jsonapi-model-examples'
 
 describe('ProductPricing', () => {
-  it('should create an instance', () => {
-    expect(new ProductPricing()).toBeTruthy();
-  });
-});
+  const type = 'product_pricings'
+
+  itShouldBehaveLikeAJsonApiModel(ProductPricing, { type })
+})

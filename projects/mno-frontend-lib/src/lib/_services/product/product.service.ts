@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs'
 import { map, tap, switchMap } from 'rxjs/operators'
 
 import { Product, ProductValue, ProductPricing } from '../../_models'
-import { Datastore } from '../datastore/datastore.service'
+import { DatastoreService } from '../datastore/datastore.service'
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class ProductService {
   private products$ = this._products.asObservable()
 
   constructor(
-    private datastore: Datastore
+    private datastore: DatastoreService
   ) {}
 
   public get products(): Product[] {
@@ -35,7 +35,7 @@ export class ProductService {
   // then instantiate the ProductPricing JsonApiModel for creating the subscription rel.
   public getProductPricing(product: Product): ProductPricing | undefined {
     if (!product.single_billing_enabled) return
-    const pricingPlan = product.pricing_plans.find(p => p.position === 1)
+    const pricingPlan = product.pricingPlans().find(p => p.position === 1)
     return new ProductPricing(this.datastore, pricingPlan)
   }
 

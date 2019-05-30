@@ -1,70 +1,97 @@
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
 import { TestBed } from '@angular/core/testing'
-import { NgxJsonapiModule, Service } from 'ngx-jsonapi'
+import { JsonApiQueryData } from 'angular2-jsonapi'
+import { of } from 'rxjs'
 
-import { Product } from '../../_models'
-import { ProductService, JsonApiHelperService, FormattedJsonApiResponse } from '../../_services'
-import { getTestProducts } from '../../../../testing/product-data'
+import { ProductService } from '../../_services'
+import { DatastoreService } from '../datastore/datastore.service'
+import { Product } from '../../_models/product/product'
+import { itMulticastsToObservers } from 'projects/mno-frontend-lib/testing/shared-examples'
+import { itDefinesBehaviourSubjectAccessors } from '../../../../testing/shared-examples'
+import { ProductPricing } from '../../_models/product-pricing/product-pricing'
+import { ProductValue } from '../../_models/product-value/product-value'
+import { ProductValueField } from '../../_models'
 
 describe('ProductService', () => {
-  let httpTestingController: HttpTestingController
-  let jsonApiHelperServiceSpy: jasmine.SpyObj<JsonApiHelperService>
-  let productService: ProductService
-  const expectedApiUrl = 'mnoe/jpi/v2/products?filter[active]=true&include=values.field,assets'
+  let product: Product
+  let products: Product[]
+  let service: ProductService
+  let datastoreSpy: jasmine.SpyObj<DatastoreService>
 
   beforeEach(() => {
-    jsonApiHelperServiceSpy = jasmine.createSpyObj('JsonApiHelperService', ['format'])
-    jsonApiHelperServiceSpy.format.and.callFake(() => {
-      return { data: getTestProducts() } as FormattedJsonApiResponse
-    })
+    product = new Product(datastoreSpy, { id: '1' })
+    products = [product]
+
+    datastoreSpy = jasmine.createSpyObj('DatastoreService', ['findAll'])
+    datastoreSpy.findAll.and.returnValue(of(new JsonApiQueryData(products)))
 
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        NgxJsonapiModule.forRoot({
-          url: 'mnoe/jpi/v2/'
-        }),
-      ],
       providers: [
+        { provide: DatastoreService, useValue: datastoreSpy },
         ProductService,
-        { provide: JsonApiHelperService, useValue: jsonApiHelperServiceSpy }
       ],
     })
-
-    httpTestingController = TestBed.get(HttpTestingController)
-    productService = TestBed.get(ProductService)
+    service = TestBed.get(ProductService)
   })
 
-  afterEach(() => {
-    // After every test, assert that there are no more pending requests.
-    httpTestingController.verify()
-  })
-
-  it('should be a NgxJsonApi Service', () => {
-    expect(productService instanceof Service).toBe(true)
-    expect(productService.resource).toEqual(Product)
-    expect(productService.type).toEqual('products')
-  })
+  itDefinesBehaviourSubjectAccessors(() => service, 'products', products)
 
   describe('fetchAll()', () => {
-    const expectedProducts = getTestProducts().map(testProduct => {
-      return Object.assign(testProduct, { field_name: 'field data' })
+    beforeEach(() => {
+      const value = new ProductValue(datastoreSpy, {
+        attributes: { data: 'field data' }
+      })
+      value.field = new ProductValueField(datastoreSpy, {
+        attributes: { nid: 'field_name' }
+      })
+      product.values = [value]
     })
 
-    it('should fetch products from API and map Product Values / Fields to Product', () => {
-      productService.fetchAll().subscribe(products => {
-        expect(products).toEqual(expectedProducts)
-        expect(products.length).toBe(2)
+    it('should fetch & emit products', () => {
+      service.fetchAll().subscribe(res => {
+        expect(res).toEqual(products)
+        expect(res.length).toBe(1)
       })
 
-      const req = httpTestingController.expectOne(expectedApiUrl)
-      expect(req.request.method).toBe('GET')
-      expect(req.request.headers.get('Accept')).toBe('application/vnd.api+json')
-      expect(req.request.headers.get('Content-Type')).toBe('application/vnd.api+json')
+      expect(datastoreSpy.findAll).toHaveBeenCalledWith(Product, {
+        filter: { active: true },
+        include: 'values.field,assets,product_instances.sync_status'
+      })
+    })
 
-      req.flush('some data')
+    it('should map Product Values / Fields to Products', () => {
+      service.fetchAll().subscribe(res => expect(res[0]['field_name']).toEqual('field data'))
+    })
 
-      expect(jsonApiHelperServiceSpy.format).toHaveBeenCalledWith('some data')
+    itMulticastsToObservers(() => service.fetchAll(), 2, (sub) => {
+      service.products = [...products]
+      sub.unsubscribe()
+      service.products = [...products]
+    })
+
+    it('always fetches latest results', () => {
+      service.fetchAll().subscribe()
+      service.fetchAll().subscribe()
+      expect(datastoreSpy.findAll).toHaveBeenCalledTimes(2)
+    })
+  })
+
+  describe('getProductPricing(product: Product)', () => {
+    beforeEach(() => {
+      product.single_billing_enabled = true
+      product.pricing_plans = [{ position: 2 }, { position: 1, id: '2' }]
+    })
+
+    it('create a ProductPricing from a ProductPricingPlan', () => {
+      const pricing = service.getProductPricing(product)
+      expect(pricing instanceof ProductPricing).toBe(true)
+      expect(pricing.id).toEqual('2')
+    })
+
+    describe('when product single billing is disabled', () => {
+      beforeEach(() => product.single_billing_enabled = false)
+      it('returns undefined', () => {
+        expect(service.getProductPricing(product)).toEqual(undefined)
+      })
     })
   })
 })

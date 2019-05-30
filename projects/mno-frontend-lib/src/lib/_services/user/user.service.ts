@@ -4,7 +4,7 @@ import { tap, switchMap, take } from 'rxjs/operators'
 
 import { User } from '../../_models'
 import { AuthenticationService } from '../authentication/authentication.service'
-import { Datastore } from '../datastore/datastore.service'
+import { DatastoreService } from '../datastore/datastore.service'
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class UserService {
   private user$ = this._user.asObservable()
 
   constructor(
-    private datastore: Datastore,
+    private datastore: DatastoreService,
     private authenticationService: AuthenticationService
   ) {}
 

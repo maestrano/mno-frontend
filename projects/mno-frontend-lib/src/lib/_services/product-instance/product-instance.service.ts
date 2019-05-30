@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { BehaviorSubject, Observable } from 'rxjs'
 import { tap, switchMap, map } from 'rxjs/operators'
 import { ProductInstance } from '../../_models'
-import { Datastore } from '../datastore/datastore.service'
+import { DatastoreService } from '../datastore/datastore.service'
 import { OrganizationService } from '../organization/organization.service'
 
 @Injectable({
@@ -13,7 +13,7 @@ export class ProductInstanceService {
   private productInstances$ = this._productInstances.asObservable()
 
   constructor(
-    private datastore: Datastore,
+    private datastore: DatastoreService,
     private organizationService: OrganizationService
   ) { }
 

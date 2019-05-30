@@ -20,7 +20,7 @@ export class Product extends JsonApiModel {
   @Attribute() small_description: string
   @Attribute() tiny_description: string
   @Attribute() field_type: string
-  @Attribute() pricing_plans: ProductPricingPlan[]
+  @Attribute() pricing_plans: object[]
   @Attribute() key_benefits: string
   @Attribute() single_billing_enabled: boolean
 
@@ -29,7 +29,7 @@ export class Product extends JsonApiModel {
   @HasMany() assets: ProductAsset[] = []
 
   public connecting?: boolean
-  private _screenshots: ProductAsset[] = []
+  private _screenshots: ProductAsset[]
   private _pricingPlans: ProductPricingPlan[]
   private _keyBenefits: string[]
 
@@ -39,6 +39,7 @@ export class Product extends JsonApiModel {
 
   public screenshots(): ProductAsset[] {
     if (this._screenshots) return this._screenshots
+
     const screenshots = this.assets.filter(a => a.field_name.toLowerCase().includes('screenshot'))
     return this._screenshots = _.sortBy(screenshots, 'position')
   }
@@ -52,6 +53,7 @@ export class Product extends JsonApiModel {
 
   public keyBenefits(): string[] {
     if (this._keyBenefits && this._keyBenefits.length) return this._keyBenefits
+
     try {
       return this._keyBenefits = JSON.parse(this.key_benefits) || []
     } catch (error) {

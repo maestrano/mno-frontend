@@ -1,7 +1,9 @@
-import { Organization } from './organization';
+import { Organization } from './organization'
+import { itShouldBehaveLikeAJsonApiModel } from '../../../../testing/jsonapi-model-examples'
 
 describe('Organization', () => {
-  it('should create an instance', () => {
-    expect(new Organization()).toBeTruthy();
-  });
-});
+  const type = 'organizations'
+  const attributes = ['uid', 'name']
+
+  itShouldBehaveLikeAJsonApiModel(Organization, { type, attributes })
+})

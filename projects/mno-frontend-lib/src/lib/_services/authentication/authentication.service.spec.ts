@@ -2,10 +2,11 @@ import { HttpClientTestingModule, HttpTestingController, TestRequest } from '@an
 import { TestBed } from '@angular/core/testing'
 
 import { AuthenticationService } from './authentication.service'
-import { FrontendLibConfigService, FrontendLibConfig } from '../../frontend-lib-config.service'
+import { FrontendLibConfigService } from '../../frontend-lib-config.service'
 import { HttpClient } from '@angular/common/http'
 import { of } from 'rxjs'
 import { User } from '../../_models'
+import { DatastoreService } from '../datastore/datastore.service'
 
 const expectedHeaders = (req: TestRequest) => {
   expect(req.request.headers.get('Accept')).toBe('application/json')
@@ -18,7 +19,8 @@ describe('AuthenticationService', () => {
       auth: {
         currentUser: 'current_user',
         signIn: 'sign_in',
-        signOut: 'sign_out'
+        signOut: 'sign_out',
+        signUp: 'sign_up'
       }
     }
   }
@@ -27,10 +29,12 @@ describe('AuthenticationService', () => {
   let service: AuthenticationService
 
   beforeEach(() => {
+
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [
         HttpClient,
+        DatastoreService,
         { provide: FrontendLibConfigService, useValue: libConfigStub }
       ]
     })
@@ -80,10 +84,14 @@ describe('AuthenticationService', () => {
 
   describe('login(email: string, password: string)', () => {
     it('should login the user', () => {
-      const user = new User({ id: '1' })
-      service.login('email', 'password').subscribe(res => expect(res).toEqual(user))
+      const user = { id: '1' } as User
+      service.login('email', 'password').subscribe(res => {
+        expect(res instanceof User).toEqual(true)
+        expect(res.id).toEqual(user.id)
+      })
 
       const req = httpTestingController.expectOne('sign_in')
+      expect(req.request.body).toEqual({ user: { email: 'email', password: 'password' } })
       expect(req.request.method).toBe('POST')
       expectedHeaders(req)
       req.flush(user)
@@ -99,6 +107,22 @@ describe('AuthenticationService', () => {
       expectedHeaders(req)
 
       req.flush('stuff')
+    })
+  })
+
+  describe('signup(company: string, email: string)', () => {
+    beforeEach(() => spyOn(service, 'logout').and.returnValue(of('response')))
+
+    it('should signup the user', () => {
+      service.signup('comp', 'comp@mail.com').subscribe()
+
+      const req = httpTestingController.expectOne('sign_up')
+      expect(req.request.body).toEqual({ user: { company: 'comp', email: 'comp@mail.com' } })
+      expect(req.request.method).toBe('POST')
+      expectedHeaders(req)
+      req.flush('some response')
+
+      expect(service.logout).toHaveBeenCalled()
     })
   })
 })

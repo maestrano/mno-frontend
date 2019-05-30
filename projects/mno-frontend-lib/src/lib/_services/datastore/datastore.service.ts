@@ -34,7 +34,7 @@ const config: DatastoreConfig = {
   providedIn: 'root'
 })
 @JsonApiDatastoreConfig(config)
-export class Datastore extends JsonApiDatastore {
+export class DatastoreService extends JsonApiDatastore {
 
   constructor(http: HttpClient) {
     super(http)
