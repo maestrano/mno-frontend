@@ -1,2 +1,5 @@
+export * from './datastore/datastore.service'
 export * from './authentication/authentication.service'
 export * from './user/user.service'
+export * from './product/product.service'
+export * from './product-provisioning/product-provisioning.service'

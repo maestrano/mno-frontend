@@ -267,6 +267,12 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
+"@ng-bootstrap/ng-bootstrap@^4.1.3":
+  version "4.1.3"
+  resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-4.1.3.tgz#9e054b3d7c5fb14d7ca102dd6bf1233a4bcb24bd"
+  dependencies:
+    tslib "^1.9.0"
+
 "@ngtools/json-schema@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@ngtools/json-schema/-/json-schema-1.1.0.tgz#c3a0c544d62392acc2813a42c8a0dc6f58f86922"
@@ -575,6 +581,17 @@ ajv@^6.1.0, ajv@^6.5.5:
 amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
+
+angular2-jsonapi@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/angular2-jsonapi/-/angular2-jsonapi-7.0.0.tgz#2b64d848c208f51752f4497882fb492ea95669fe"
+  dependencies:
+    date-fns "^1.29.0"
+    lodash-es "^4.17.11"
+    qs "^6.6.0"
+    tslib "^1.9.0"
+  optionalDependencies:
+    fsevents "*"
 
 ansi-align@^2.0.0:
   version "2.0.0"
@@ -1716,6 +1733,10 @@ dashdash@^1.12.0:
   dependencies:
     assert-plus "^1.0.0"
 
+date-fns@^1.29.0:
+  version "1.30.1"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.30.1.tgz#2e71bf0b119153dbb4cc4e88d9ea5acfb50dc05c"
+
 date-format@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/date-format/-/date-format-2.0.0.tgz#7cf7b172f1ec564f0003b39ea302c5498fb98c8f"
@@ -2474,6 +2495,10 @@ fs-write-stream-atomic@^1.0.8:
 fs.realpath@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
+
+fsevents@*:
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-2.0.7.tgz#382c9b443c6cbac4c57187cdda23aa3bf1ccfc2a"
 
 fsevents@^1.2.2, fsevents@^1.2.7:
   version "1.2.9"
@@ -3574,12 +3599,6 @@ license-webpack-plugin@2.1.0:
     "@types/webpack-sources" "^0.1.5"
     webpack-sources "^1.2.0"
 
-lie@3.1.1:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/lie/-/lie-3.1.1.tgz#9a436b2cc7746ca59de7a41fa469b3efb76bd87e"
-  dependencies:
-    immediate "~3.0.5"
-
 lie@~3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/lie/-/lie-3.3.0.tgz#dcf82dee545f46074daf200c7c1c5a08e0f40f6a"
@@ -3626,18 +3645,6 @@ loader-utils@1.2.3, loader-utils@^1.0.1, loader-utils@^1.0.2, loader-utils@^1.1.
     emojis-list "^2.0.0"
     json5 "^1.0.1"
 
-localforage-getitems@^1.4.2:
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/localforage-getitems/-/localforage-getitems-1.4.2.tgz#bddd3e716e7df339dc5a5cc26e2dd1decec76606"
-  dependencies:
-    localforage ">=1.4.0"
-
-localforage@>=1.4.0, localforage@^1.5.2:
-  version "1.7.3"
-  resolved "https://registry.yarnpkg.com/localforage/-/localforage-1.7.3.tgz#0082b3ca9734679e1bd534995bdd3b24cf10f204"
-  dependencies:
-    lie "3.1.1"
-
 locate-path@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/locate-path/-/locate-path-2.0.0.tgz#2b568b265eec944c6d9c0de9c3dbbbca0354cd8e"
@@ -3651,6 +3658,10 @@ locate-path@^3.0.0:
   dependencies:
     p-locate "^3.0.0"
     path-exists "^3.0.0"
+
+lodash-es@^4.17.11:
+  version "4.17.11"
+  resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.11.tgz#145ab4a7ac5c5e52a3531fb4f310255a152b4be0"
 
 lodash.clonedeep@^4.5.0:
   version "4.5.0"
@@ -4082,12 +4093,11 @@ ng-packagr@^4.2.0:
     uglify-js "^3.0.7"
     update-notifier "^2.3.0"
 
-ngx-jsonapi@^2.0.0-rc.4:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/ngx-jsonapi/-/ngx-jsonapi-2.0.2.tgz#6bfaf01700053285109b8bc23873e0098be0381c"
+ngx-window-token@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/ngx-window-token/-/ngx-window-token-2.0.1.tgz#8f91221af4116aa9f49bb3f7a6f1111639884fba"
   dependencies:
-    localforage "^1.5.2"
-    localforage-getitems "^1.4.2"
+    tslib "^1.9.0"
 
 nice-try@^1.0.4:
   version "1.0.5"
@@ -4892,7 +4902,7 @@ qs@6.5.2, qs@~6.5.2:
   version "6.5.2"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
 
-qs@6.7.0:
+qs@6.7.0, qs@^6.6.0:
   version "6.7.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.7.0.tgz#41dc1a015e3d581f1621776be31afb2876a9b1bc"
 

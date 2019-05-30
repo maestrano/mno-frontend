@@ -1,0 +1,22 @@
+:host {
+  display: contents;
+}
+
+div[class*="col-"] {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.card {
+  cursor: pointer;
+  width: 100%;
+  box-shadow: 2px 3px 11px 0 #9090904d;
+  border-radius: 20px;
+  background-color: #d7d7d899;
+  border: none;
+  transition: transform .2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.03);
+  }
+}

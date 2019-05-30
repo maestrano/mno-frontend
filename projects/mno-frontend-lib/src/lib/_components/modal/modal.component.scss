@@ -1,0 +1,63 @@
+.mno-modal {
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 0;
+  background: rgba(0, 0, 0, 0.45);
+
+  .card {
+    cursor: default;
+    position: absolute;
+    height: 100%;
+    background-color: white;
+    overflow: auto;
+    border-radius: 10px;
+    box-shadow: 2px 3px 11px 3px #666666d1;
+    border: 1px solid #666666d1;
+
+    // Modal card (content) width
+    width: 80%;
+    // expanded element should occupy 90% of the screen size
+    max-height: calc(100vh - 10%);
+    // Add some distance from the top of the screen
+    top: 5%;
+    // horizontally center fixed element
+    left: 50%;
+    transform: translateX(-50%) scale(1);
+    animation: expand 0.105s ease-in-out;
+
+    &:hover { transform: translateX(-50%); }
+
+    // Smaller screens snap to full screen
+    @media screen and (max-width: 1200px) {
+      box-shadow: none;
+      // Smaller screens snap to full screen
+      max-height: 100%;
+      max-width: 100%;
+      width: 100%;
+      border-radius: 0;
+      border: 0;
+      top: 0;
+    }
+
+    .card-body {
+      height: 100%;
+      padding: 0;
+    }
+  }
+
+  .close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+  }
+}
+
+@keyframes expand {
+  from { transform: translateX(-50%) scale(0.5); }
+  to { transform: translateX(-50%) scale(1); }
+}

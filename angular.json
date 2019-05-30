@@ -167,5 +167,10 @@
       }
     }
   },
-  "defaultProject": "mno-frontend-lib"
+  "defaultProject": "mno-frontend-lib",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }

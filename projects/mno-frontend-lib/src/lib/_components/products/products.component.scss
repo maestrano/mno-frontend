@@ -1,0 +1,27 @@
+mno-expanding-tiles-grid {
+  margin: 0 1.5em;
+
+  @media screen and (min-width: 1500px) {
+    margin: 0 15%;
+  }
+}
+
+.card-title {
+  width: 95%;
+  margin: auto;
+}
+
+img.logo {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  margin: auto;
+  background: white;
+  border-radius: 0 0 20px 20px;
+}
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

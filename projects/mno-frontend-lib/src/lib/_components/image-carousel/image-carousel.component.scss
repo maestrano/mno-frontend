@@ -1,0 +1,84 @@
+/deep/ .carousel {
+  width: 100%;
+  height: 100%;
+
+  &:focus {
+    outline: none !important;
+  }
+
+  .carousel-inner {
+    // leaves 15% for the absolutely positioned carousel indicators
+    height: 85%;
+
+    .carousel-item {
+      height: 100%;
+      background-size: cover;
+      background-position: center center;
+
+      img {
+        max-width: 100%;
+        max-height: 100%;
+        margin: 0 auto;
+      }
+    }
+  }
+
+  .carousel-control-prev {
+    left: -30px;
+  }
+
+  .carousel-control-next {
+    right: -30px;
+  }
+
+  .carousel-control-next,
+  .carousel-control-prev {
+    width: 8.333333333%;
+    cursor: pointer;
+
+    .carousel-control-next-icon {
+      background: none;
+    }
+
+    .carousel-control-prev-icon {
+      background: none;
+    }
+  }
+
+  .carousel-indicators {
+    li {
+      text-indent: 0;
+      margin: 3px;
+      background-color: inherit;
+      border: none;
+
+      &::before {
+        display: none;
+        font-family: "Font Awesome 5 Light";
+        content: "\f111";
+      }
+
+      .svg-inline--fa {
+        font-size: 12px;
+        vertical-align: middle;
+        color: grey;
+      }
+
+      &::after {
+        content: '';
+        display: none;
+      }
+
+      &.active {
+
+        .svg-inline--fa {
+          color: #5DAEFD;
+        }
+
+        &::before {
+          font-family: "Font Awesome 5 Solid";
+        }
+      }
+    }
+  }
+}

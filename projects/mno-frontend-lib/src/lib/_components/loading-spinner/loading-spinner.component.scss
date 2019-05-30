@@ -1,0 +1,20 @@
+:host {
+  color: #5daefd;
+}
+
+.loader-wrapper {
+  .c {
+    color: red;
+  }
+
+  .loader-text {
+    color: red !important;
+  }
+}
+
+.vh-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

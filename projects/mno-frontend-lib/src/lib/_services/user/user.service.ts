@@ -1,40 +1,47 @@
 import { Injectable } from '@angular/core'
-import { Service, Autoregister } from 'ngx-jsonapi'
 import { BehaviorSubject, Observable, of } from 'rxjs'
-import { tap, switchMap, filter } from 'rxjs/operators'
+import { tap, switchMap, take } from 'rxjs/operators'
 
 import { User } from '../../_models'
 import { AuthenticationService } from '../authentication/authentication.service'
+import { DatastoreService } from '../datastore/datastore.service'
 
 @Injectable({
   providedIn: 'root'
 })
-@Autoregister()
-export class UserService extends Service<User> {
-  public resource = User
-  public type = 'users'
+export class UserService {
+  private _user = new BehaviorSubject<User>(null)
+  private user$ = this._user.asObservable()
 
-  private user = new BehaviorSubject<User>(null)
-  private user$ = this.user.asObservable()
+  constructor(
+    private datastore: DatastoreService,
+    private authenticationService: AuthenticationService
+  ) {}
 
-  constructor(private authenticationService: AuthenticationService) {
-    super()
+  public get user(): User {
+    return this._user.getValue()
+  }
+
+  public set user(val: User) {
+    this._user.next(val)
   }
 
   public fetch(): Observable<User> {
-    if (this.user.value) return this.user$
-    else return this.requestUserDetails().pipe(
-      tap(user => this.user.next(user)),
+    if (this.user) return this.user$
+
+    return this.requestUserDetails().pipe(
+      tap(user => this.user = user),
       switchMap(() => this.user$)
     )
   }
 
-  private requestUserDetails(): Observable<User> {
+  public fetchLatest(): Observable<User> {
+    return this.fetch().pipe(take(1))
+  }
+
+  private requestUserDetails() {
     return this.authenticationService.fetchCurrentUserId().pipe(
-      switchMap(id => {
-        if (!id) return of(null)
-        return this.get(id).pipe(filter(user => !user.is_loading))
-      })
+      switchMap(id => id ? this.datastore.findRecord(User, id, { include: 'organizations' }) : of(null))
     )
   }
 }

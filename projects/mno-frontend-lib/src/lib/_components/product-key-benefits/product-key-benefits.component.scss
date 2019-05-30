@@ -1,0 +1,23 @@
+:host {
+  display: block;
+}
+
+ul {
+  width: 100%;
+}
+
+.groups {
+  width: 100%;
+  margin-left: 5%;
+  @media screen and (min-width: 900px) { margin-left: 10%; }
+}
+
+.benefit {
+  font-size: 1.2em;
+  line-height: 1.2;
+  margin-bottom: 1em;
+  display: flex;
+  align-items: center;
+
+  .icon { color: #52c252; }
+}

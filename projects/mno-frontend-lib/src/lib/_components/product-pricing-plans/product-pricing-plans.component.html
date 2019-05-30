@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col-6 col-sm-4 col-md-3" *ngFor="let price of pricingPlans">
+    <div class="card">
+      <div class="card-block">
+        <h4 class="card-title">{{price.name}}</h4>
+        <h6 class="card-subtitle mb-2 text-muted">{{price.description}}</h6>
+        <div class="card-text" *ngFor="let val of price.getPrices(appCurrency)">
+          <span>
+            {{val.currency}} {{val.price_cents/100 | currency:val.currency:'symbol-narrow'}}<span *ngIf="price.per_unit">/
+              {{price.per_unit}}</span> / {{price.per_duration}}
+          </span>
+          <s *ngIf="val.original_price_cents">{{val.currency}}
+            {{val.original_price_cents/100 | currency:val.currency:'symbol-narrow'}}<span *ngIf="price.per_unit"> /
+              {{price.per_unit}}</span> / {{price.per_duration}}
+          </s>
+        </div>
+        <a *ngIf="price.link" [attr.href]="price.link" class="primary text-uppercase card-link">Learn more</a>
+      </div>
+    </div>
+  </div>
+</div>

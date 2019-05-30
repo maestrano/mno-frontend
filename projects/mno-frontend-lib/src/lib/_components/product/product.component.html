@@ -1,0 +1,33 @@
+<div class="card-title">
+  <h4>{{product.name}}</h4>
+  <span *ngIf="product.header_description" class="header-desc"
+    [innerHTML]="[product.header_description]"></span>
+</div>
+<div class="body-content">
+  <section class="mt-3 mb-5 small-desc-section">
+    <h5 *ngIf="product.small_description" [innerHTML]="product.small_description"></h5>
+    <mno-add-product-button class="add-button" addText="Add" connectedText="Launch" [connected]="isConnected()" [disconnected]="isDisconnected()" [connecting]="product.connecting" (clickedAdd)="connectProduct()" (clickedLaunch)="launchProduct()"></mno-add-product-button>
+  </section>
+
+  <section class="row carousel-section">
+    <div class="col-12 col-xl-8 mb-5" *ngIf="product.screenshots().length">
+      <mno-image-carousel [images]="product.screenshots()"></mno-image-carousel>
+    </div>
+    <!-- hidden on < xl -->
+    <mno-product-key-benefits class="col-{{product.screenshots().length ? '4' : '12'}}" [keyBenefits]="product.keyBenefits()"></mno-product-key-benefits>
+  </section>
+
+  <section class="mb-5 desc-section">
+    <mno-product-key-benefits [keyBenefits]="product.keyBenefits()" [cols]="2"></mno-product-key-benefits>
+    <div class="mt-3" *ngIf="product.description" [innerHTML]="[product.description]"></div>
+  </section>
+
+  <section *ngIf="product.pricingPlans().length" class="mb-5">
+    <h5>Pricing</h5>
+    <mno-product-pricing-plans [pricingPlans]="product.pricingPlans()"></mno-product-pricing-plans>
+  </section>
+
+  <footer class="mb-5">
+    <mno-add-product-button class="add-button" addText="Add" connectedText="Launch" [connected]="isConnected()" [disconnected]="isDisconnected()" [connecting]="product.connecting" (clickedAdd)="connectProduct()" (clickedLaunch)="launchProduct()"></mno-add-product-button>
+  </footer>
+</div>

@@ -1,12 +1,20 @@
 import { InjectionToken } from '@angular/core'
 
 export interface FrontendLibConfig {
+  currency: string,
   urls: {
     auth: {
       currentUser: string
       signIn: string
       signOut: string
       signUp: string
+    },
+    products: {
+      defaultPostConnectionRedirectPath?: string
+      connect: string
+      disconnect: string
+      sso: string
+      syncAll: string
     }
   }
 }
