@@ -25,7 +25,8 @@ import {
   ProductKeyBenefitsComponent,
   ProductPricingPlansComponent,
   AddProductButtonComponent,
-  LoadingSpinnerComponent
+  LoadingSpinnerComponent,
+  AppsCarouselComponent
 } from './_components'
 
 @NgModule({
@@ -48,6 +49,7 @@ import {
     LoadingSpinnerComponent,
     ProductKeyBenefitsComponent,
     ProductPricingPlansComponent,
+    AppsCarouselComponent
   ],
   exports: [
     LoginBoxComponent,
@@ -57,7 +59,8 @@ import {
     ModalComponent,
     ImageCarouselComponent,
     AddProductButtonComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    AppsCarouselComponent
   ],
   providers: [
     AuthenticationService,
@@ -72,6 +75,9 @@ export class MnoFrontendLibModule {
         products: {
           defaultPostConnectionRedirectPath: '/dashboard'
         }
+      },
+      products: {
+        instancePollingInterval: 10000
       }
     }
     return {

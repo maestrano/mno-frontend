@@ -11,7 +11,7 @@ export function itMulticastsToObservers(
   cb: (sub: Subscription) => void
 ) {
   describe('multicasting new results to observers until unsubscribed', () => {
-    itInvokesSubscriptionTimes(method, times, (sub) => {
+    itNotifiesSubscriptionTimes(method, times, (sub) => {
       // Mock async, delay by 1 sec
       tick(1000)
       // Callback should emit more results to internal BehaviourSubject & unsubscribe
@@ -21,7 +21,7 @@ export function itMulticastsToObservers(
   })
 }
 
-export function itInvokesSubscriptionTimes(
+export function itNotifiesSubscriptionTimes(
   method: () => Observable<any>,
   times: number,
   cb: (sub: Subscription) => void

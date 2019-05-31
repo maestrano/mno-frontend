@@ -15,7 +15,10 @@ describe('ProductInstance', () => {
   ]
   const relationships = {
     sync_status: {
-      data: { id: '1', type: 'sync_statuses' }
+      data: { id: '1', type: 'sync_statuses' },
+    },
+    product: {
+      data: { id: '1', type: 'products' }
     }
   }
 
@@ -25,6 +28,22 @@ describe('ProductInstance', () => {
 
     beforeEach(() => {
       productInstance.sync_status = new SyncStatus(datastore, { attributes: { status } })
+    })
+
+    describe('connectionStatus()', () => {
+      beforeAll(() => status = 'connected')
+
+      it('returns sync_status status', () => {
+        expect(productInstance.connectionStatus()).toEqual('connected')
+      })
+
+      describe('when there is no sync_status', () => {
+        beforeEach(() => productInstance.sync_status = undefined)
+
+        it('should be disconnected', () => {
+          expect(productInstance.connectionStatus()).toEqual('disconnected')
+        })
+      })
     })
 
     describe('isConnected', () => {
