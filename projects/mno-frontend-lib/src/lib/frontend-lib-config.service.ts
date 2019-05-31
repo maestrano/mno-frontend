@@ -19,7 +19,7 @@ export interface FrontendLibConfig {
       syncAll: string
     }
   },
-  products: {
+  products?: {
     instancePollingInterval?: number
   },
 }
