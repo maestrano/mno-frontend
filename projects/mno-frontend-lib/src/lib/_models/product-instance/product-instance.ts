@@ -1,5 +1,6 @@
 import { JsonApiModel, JsonApiModelConfig, BelongsTo, Attribute } from 'angular2-jsonapi'
 import { SyncStatus, SyncStatuses } from '../sync-status/sync-status'
+import { Product } from '../product/product'
 
 type ProductInstanceStatuses = 'pending' | 'provisioning' | 'active' | 'suspended' | 'cancelled'
 
@@ -21,6 +22,11 @@ export class ProductInstance extends JsonApiModel {
   @Attribute() status: ProductInstanceStatuses
 
   @BelongsTo() sync_status: SyncStatus
+  @BelongsTo() product: Product
+
+  public connectionStatus(): SyncStatuses {
+    return this.sync_status ? this.sync_status.status : this.NO_SYNC_STATUS
+  }
 
   public isConnected(): boolean {
     return this.DISCONNECTION_SYNC_STATUSES.indexOf(this.connectionStatus()) === -1
@@ -28,9 +34,5 @@ export class ProductInstance extends JsonApiModel {
 
   public isDisconnected(): boolean {
     return !this.isConnected()
-  }
-
-  private connectionStatus(): SyncStatuses {
-    return this.sync_status ? this.sync_status.status : this.NO_SYNC_STATUS
   }
 }

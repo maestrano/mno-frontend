@@ -1,31 +1,50 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core'
+import { Router } from '@angular/router'
+import { Subscription } from 'rxjs'
+import { ProductInstanceService } from '../../_services/product-instance/product-instance.service'
+import { ProductInstance } from '../../_models'
+import { ProductProvisioningService } from '../../_services/product-provisioning/product-provisioning.service'
+
+interface App extends Partial<ProductInstance> {
+  add?: boolean
+}
 
 @Component({
   selector: 'mno-apps-carousel',
   templateUrl: './apps-carousel.component.html',
-  styleUrls: ['./apps-carousel.component.css']
+  styleUrls: ['./apps-carousel.component.scss']
 })
-export class AppsCarouselComponent implements OnInit {
+export class AppsCarouselComponent implements OnInit, OnDestroy {
   @Input() max = 4
+  @Input() addAppNavigatePath: string
 
-  public apps: object[]
+  public apps: App[] = []
   public indexStart = 0
+  public loading = true
 
-  constructor() { }
+  private subs: Subscription[]
+
+  constructor(
+    private router: Router,
+    private productInstanceService: ProductInstanceService,
+    private productProvisioningService: ProductProvisioningService
+  ) { }
 
   ngOnInit() {
-    // TODO: fetch apps from service & show logos
-    this.apps = [
-      { attributes: { name: 'Xero' } },
-      { attributes: { name: 'vTiger' } },
-      { attributes: { name: 'Hubspot' } },
-      { attributes: { name: 'Salesforce' } }
+    this.subs = [
+      this.productInstanceService.startPollingAll().subscribe(instances => {
+        this.apps = [...instances]
+        this.apps.push({ add: true })
+        this.loading = false
+      })
     ]
-    // --
-    this.apps.push({ add: true })
   }
 
-  public visibleCards(): object[] {
+  ngOnDestroy() {
+    this.subs.forEach(s => s.unsubscribe())
+  }
+
+  public visibleCards(): App[] {
     return this.apps.slice(this.indexStart, this.indexStart + this.max)
   }
 
@@ -50,4 +69,7 @@ export class AppsCarouselComponent implements OnInit {
     if (this.canShiftLeft()) this.indexStart--
   }
 
+  public onClick(app: App) {
+    app.add ? this.router.navigate([this.addAppNavigatePath]) : this.productProvisioningService.redirectToApp(app as ProductInstance)
+  }
 }

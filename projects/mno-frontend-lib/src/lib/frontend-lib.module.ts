@@ -75,6 +75,9 @@ export class MnoFrontendLibModule {
         products: {
           defaultPostConnectionRedirectPath: '/dashboard'
         }
+      },
+      products: {
+        instancePollingInterval: 10000
       }
     }
     return {

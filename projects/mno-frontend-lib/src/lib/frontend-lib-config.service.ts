@@ -1,5 +1,7 @@
 import { InjectionToken } from '@angular/core'
 
+// When marking interface props as optional, make sure defaults are defined in
+// the MnoFrontendLibModule.forRoot().
 export interface FrontendLibConfig {
   currency: string,
   urls: {
@@ -16,7 +18,10 @@ export interface FrontendLibConfig {
       sso: string
       syncAll: string
     }
-  }
+  },
+  products: {
+    instancePollingInterval?: number
+  },
 }
 
 /**

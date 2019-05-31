@@ -1,12 +1,20 @@
+.apps-carousel-container {
+  position: relative;
+  min-height: 30px;
+}
+
 .arrow .fa {
   cursor: pointer;
   font-size: 22px;
 }
 
-.arrow.text-muted .fa { cursor: default; }
+.arrow.text-muted .fa {
+  cursor: default;
+  color: #dcdcdc;
+}
 
 .apps-cards { margin: 0px 15px; }
-  
+
 .card {
   margin: 0px 5px;
   width: 150px;
@@ -15,6 +23,19 @@
   border: none;
   animation: expand .3s ease-in-out;
   cursor: pointer;
+}
+
+.card-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.2em;
+}
+
+.logo {
+  height: auto;
+  width: 70px;
+  border-radius: 100%;
 }
 
 .card:hover {
