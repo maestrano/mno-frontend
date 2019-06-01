@@ -12,6 +12,7 @@ import {
   AuthenticationService,
   UserService,
   ProductService,
+  DashboardService
 } from './_services'
 
 import {
@@ -65,7 +66,8 @@ import {
   providers: [
     AuthenticationService,
     UserService,
-    ProductService
+    ProductService,
+    DashboardService
   ]
 })
 export class MnoFrontendLibModule {

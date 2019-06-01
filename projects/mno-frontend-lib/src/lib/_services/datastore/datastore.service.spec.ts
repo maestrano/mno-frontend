@@ -13,7 +13,8 @@ import {
   ProductValue,
   ProductValueField,
   ProductAsset,
-  SyncStatus
+  SyncStatus,
+  Dashboard
 } from '../../_models'
 
 describe('DatastoreService', () => {
@@ -48,6 +49,7 @@ describe('DatastoreService', () => {
         fields: ProductValueField,
         assets: ProductAsset,
         sync_statuses: SyncStatus,
+        dashboards: Dashboard
       }
     })
   })
