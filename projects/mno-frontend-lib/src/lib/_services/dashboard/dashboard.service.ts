@@ -5,7 +5,7 @@ import { Dashboard } from '../../_models'
 import { FrontendLibConfigService, FrontendLibConfig } from '../../frontend-lib-config.service'
 import { DatastoreService } from '../datastore/datastore.service'
 import { UserService } from '../user/user.service'
-import * as _ from 'lodash'
+import { OrganizationService } from '../organization/organization.service'
 
 export interface DashboardCreateParams {
   name: string
@@ -24,6 +24,7 @@ export class DashboardService {
   constructor(
     private datastore: DatastoreService,
     private userService: UserService,
+    private organizationService: OrganizationService,
     @Inject(FrontendLibConfigService) private libConfig: FrontendLibConfig,
   ) { }
 
@@ -48,20 +49,20 @@ export class DashboardService {
     )
   }
 
-  // TODO: unit test
   public create(params: DashboardCreateParams): Observable<Dashboard> {
     const user = this.userService.user
-    params = {
-      // TODO: use angular2-jsonapi relationship for owner.
-      owner_type: 'User',
-      owner_id: user.id,
-      // TODO: use organization service fetchCurrent
-      organization_ids: _.compact([_.get(user, 'organizations[0].uid')]),
-      settings: { currency: this.libConfig.currency },
-      ...params
-    } as any // TODO: fix type
-    return this.datastore.createRecord(Dashboard, params).save().pipe(
-      tap(dashboard => this.add(dashboard))
+    return this.organizationService.fetchCurrent().pipe(
+      switchMap(org => {
+        const attrs = {
+          owner: user,
+          organization_ids: [org.uid],
+          settings: { currency: this.libConfig.currency },
+          ...params
+        }
+        return this.datastore.createRecord(Dashboard, attrs).save().pipe(
+          tap(dashboard => this.add(dashboard))
+        )
+      })
     )
   }
 
