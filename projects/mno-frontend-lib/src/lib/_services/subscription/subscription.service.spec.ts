@@ -4,7 +4,7 @@ import { SubscriptionService } from './subscription.service'
 import { DatastoreService } from '../datastore/datastore.service'
 import { Subscription, Product, User, Organization, ProductPricing } from '../../_models'
 import { of } from 'rxjs'
-import { itFinalizesObservable } from 'projects/mno-frontend-lib/testing/shared-examples';
+import { itFinalizesObservable } from 'projects/mno-frontend-lib/testing/shared-examples'
 
 describe('SubscriptionService', () => {
   let datastoreSpy: jasmine.SpyObj<DatastoreService>
