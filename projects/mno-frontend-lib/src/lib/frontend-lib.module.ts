@@ -27,7 +27,8 @@ import {
   ProductPricingPlansComponent,
   AddProductButtonComponent,
   LoadingSpinnerComponent,
-  AppsCarouselComponent
+  AppsCarouselComponent,
+  PopoverComponent
 } from './_components'
 
 @NgModule({
@@ -50,7 +51,8 @@ import {
     LoadingSpinnerComponent,
     ProductKeyBenefitsComponent,
     ProductPricingPlansComponent,
-    AppsCarouselComponent
+    AppsCarouselComponent,
+    PopoverComponent
   ],
   exports: [
     LoginBoxComponent,
@@ -61,7 +63,8 @@ import {
     ImageCarouselComponent,
     AddProductButtonComponent,
     LoadingSpinnerComponent,
-    AppsCarouselComponent
+    AppsCarouselComponent,
+    PopoverComponent
   ],
   providers: [
     AuthenticationService,

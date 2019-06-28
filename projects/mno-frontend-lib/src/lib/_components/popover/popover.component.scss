@@ -1,0 +1,53 @@
+:host {
+  display: block;
+  position: relative;
+
+  &.bottom {
+    .content {
+      top: 130%;
+      bottom: auto;
+    }
+
+    .pointer {
+      top: -10px;
+      bottom: auto;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-bottom: 10px solid white;
+      border-top: 0;
+    }
+  }
+}
+
+.handle {
+  cursor: pointer;
+}
+
+.content {
+  background: white;
+  width: 100%;
+  border-radius: 4px;
+  box-shadow: var(--normal-shadow);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  z-index: 10000;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  display: flex;
+  overflow: none;
+}
+
+.pointer {
+  position: absolute;
+  width: 0;
+  height: 0;
+  bottom: -9px;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid white;
+}
