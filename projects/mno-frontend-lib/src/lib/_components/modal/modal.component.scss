@@ -12,36 +12,36 @@
   .card {
     cursor: default;
     position: absolute;
-    height: 100%;
     background-color: white;
     overflow: auto;
     border-radius: 10px;
     box-shadow: 2px 3px 11px 3px #666666d1;
     border: 1px solid #666666d1;
-
-    // Modal card (content) width
-    width: 80%;
+    // vertically center element
+    top: 50%;
+    transform: translate(-50%, -50%);
     // expanded element should occupy 90% of the screen size
     max-height: calc(100vh - 10%);
     // Add some distance from the top of the screen
-    top: 5%;
+    // top: 5%;
     // horizontally center fixed element
     left: 50%;
-    transform: translateX(-50%) scale(1);
+    transform: translate(-50%, -50%) scale(1);
     animation: expand 0.105s ease-in-out;
-
-    &:hover { transform: translateX(-50%); }
 
     // Smaller screens snap to full screen
     @media screen and (max-width: 1200px) {
       box-shadow: none;
-      // Smaller screens snap to full screen
+      // Smaller screens snap to full screen (!important to override ng [style.width] input bindings
+      height: 100% !important;
+      width: 100% !important;
       max-height: 100%;
       max-width: 100%;
-      width: 100%;
+      transform: translate(-50%, 0);
       border-radius: 0;
       border: 0;
       top: 0;
+      animation: expandFullSize 0.105s ease-in-out;
     }
 
     .card-body {
@@ -58,6 +58,11 @@
 }
 
 @keyframes expand {
-  from { transform: translateX(-50%) scale(0.5); }
-  to { transform: translateX(-50%) scale(1); }
+  from { transform: translate(-50%, -50%) scale(0.5); }
+  to { transform: translate(-50%, -50%) scale(1); }
+}
+
+@keyframes expandFullSize {
+  from { transform: translate(-50%, 0) scale(0.5); }
+  to { transform: translate(-50%, 0) scale(1); }
 }
