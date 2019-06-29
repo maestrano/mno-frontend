@@ -27,6 +27,7 @@ import {
   ProductPricingPlansComponent,
   AddProductButtonComponent,
   LoadingSpinnerComponent,
+  CardsCarouselComponent,
   AppsCarouselComponent,
   PopoverComponent
 } from './_components'
@@ -51,6 +52,7 @@ import {
     LoadingSpinnerComponent,
     ProductKeyBenefitsComponent,
     ProductPricingPlansComponent,
+    CardsCarouselComponent,
     AppsCarouselComponent,
     PopoverComponent
   ],
@@ -63,6 +65,7 @@ import {
     ImageCarouselComponent,
     AddProductButtonComponent,
     LoadingSpinnerComponent,
+    CardsCarouselComponent,
     AppsCarouselComponent,
     PopoverComponent
   ],
