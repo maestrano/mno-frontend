@@ -4,6 +4,10 @@ import { JsonApiModelConfig, JsonApiModel, Attribute } from 'angular2-jsonapi'
   type: 'dashboards'
 })
 export class Dashboard extends JsonApiModel {
+  // Parent application should set the gridOptions value on the Dashboard so dashboard instances
+  // can use the values for positioning calculations.
+  static gridOptions = {}
+
   @Attribute() name: string
   @Attribute() settings: { currency: string }
   @Attribute() owner_type: string

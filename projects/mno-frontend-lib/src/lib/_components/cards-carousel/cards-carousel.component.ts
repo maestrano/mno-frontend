@@ -20,7 +20,6 @@ export class CardsCarouselComponent implements OnInit, OnDestroy {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.cardStyles)
   }
 
   ngOnDestroy() {
