@@ -29,7 +29,8 @@ import {
   LoadingSpinnerComponent,
   CardsCarouselComponent,
   AppsCarouselComponent,
-  PopoverComponent
+  PopoverComponent,
+  InfoBackdropModalComponent
 } from './_components'
 
 @NgModule({
@@ -54,7 +55,8 @@ import {
     ProductPricingPlansComponent,
     CardsCarouselComponent,
     AppsCarouselComponent,
-    PopoverComponent
+    PopoverComponent,
+    InfoBackdropModalComponent
   ],
   exports: [
     LoginBoxComponent,
@@ -67,7 +69,8 @@ import {
     LoadingSpinnerComponent,
     CardsCarouselComponent,
     AppsCarouselComponent,
-    PopoverComponent
+    PopoverComponent,
+    InfoBackdropModalComponent
   ],
   providers: [
     AuthenticationService,
