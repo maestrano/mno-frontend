@@ -21,6 +21,10 @@
 
 .handle {
   cursor: pointer;
+
+  &.disabled {
+    cursor: default;
+  }
 }
 
 .content {

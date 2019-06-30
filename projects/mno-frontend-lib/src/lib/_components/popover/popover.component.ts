@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, OnDestroy } from '@angular/core'
+import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, HostListener } from '@angular/core'
 
 export interface PopoverOption {
   label: string
@@ -10,31 +10,23 @@ export interface PopoverOption {
   templateUrl: './popover.component.html',
   styleUrls: ['./popover.component.scss']
 })
-export class PopoverComponent implements OnInit, OnDestroy {
+export class PopoverComponent {
   open = false
-  handleClick: (e: Event) => void
-  // Whether to close dropdown on internal selection
   @Input() sticky = false
+  @Input() disabled = false
+  @Input() minWidth: string
   @Output() opened = new EventEmitter<boolean>()
 
   @ViewChild('ref') ref: ElementRef
 
-  constructor() {
-    // To cancel the listener must save reference of bound function
-    this.handleClick = ((e: Event) => {
-      if (this.ref && this.ref.nativeElement.contains(e.target)) {
-        return
-      }
-      this.setOpen(false)
-    }).bind(this)
+  @HostListener('document:mousedown', ['$event']) onMousedownHandler(event: MouseEvent) {
+    this.handleClick(event)
   }
 
-  ngOnInit() {
-    document.addEventListener('mousedown', this.handleClick)
-  }
+  handleClick(e: MouseEvent) {
+    if (this.ref && this.ref.nativeElement.contains(e.target)) return
 
-  ngOnDestroy() {
-    document.removeEventListener('mousedown', this.handleClick)
+    this.setOpen(false)
   }
 
   setOpen(val: boolean) {
