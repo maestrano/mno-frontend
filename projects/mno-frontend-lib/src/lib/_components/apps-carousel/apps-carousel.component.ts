@@ -44,6 +44,10 @@ export class AppsCarouselComponent implements OnInit, OnDestroy {
   }
 
   public onAppClick(app: App) {
-    app.add ? this.router.navigate([this.addAppNavigatePath]) : this.productProvisioningService.redirectToApp(app as ProductInstance)
+    if (app.add) this.router.navigate([this.addAppNavigatePath])
+
+    app.isConnected()
+      ? this.productProvisioningService.redirectToApp(app as ProductInstance)
+      : this.productProvisioningService.redirectForConnection(app as ProductInstance)
   }
 }
