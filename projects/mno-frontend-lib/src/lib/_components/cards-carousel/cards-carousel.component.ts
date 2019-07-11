@@ -101,10 +101,11 @@ export class CardsCarouselComponent implements OnInit, AfterViewInit, OnDestroy 
     const maxWidth = this.el.nativeElement.offsetWidth
     const cards = this.cardsRef.nativeElement.children
     const cardWidth = cards[0].offsetWidth + 25 // buffer for card spacing & prev / next actions
+
     // reduce maximum cards
     if (maxWidth / cardWidth < cards.length) {
       let i = this._max
-      while (i <= this._max && i > 1) {
+      while (i <= this._max && i >= 1) {
         if (maxWidth / cardWidth > i) {
           this._internalMax = i
           break
