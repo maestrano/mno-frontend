@@ -40,6 +40,10 @@ export class DashboardService {
     this.dashboards = this.dashboards.concat(dashboard)
   }
 
+  public remove(dashboardId: string) {
+    this.dashboards = this.dashboards.filter(d => d.id !== dashboardId)
+  }
+
   public fetchAll(): Observable<Dashboard[]> {
     if (this.dashboards.length) return this.dashboards$
 
@@ -63,6 +67,12 @@ export class DashboardService {
           tap(dashboard => this.add(dashboard))
         )
       })
+    )
+  }
+
+  public destroy(id: string): Observable<any> {
+    return this.datastore.deleteRecord(Dashboard, id).pipe(
+      tap(() => this.remove(id))
     )
   }
 

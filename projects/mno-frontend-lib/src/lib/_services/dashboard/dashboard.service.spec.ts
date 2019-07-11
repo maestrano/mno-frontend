@@ -28,14 +28,16 @@ describe('DashboardService', () => {
     // Stubbing getter
     userServiceSpy = { user }
 
-    dashboards = [new Dashboard(datastoreSpy, { id: '1' })]
-    dashboard = new Dashboard(datastoreSpy)
-    datastoreSpy = jasmine.createSpyObj('DatastoreService', ['findAll', 'createRecord'])
+    dashboard = new Dashboard(datastoreSpy, { id: '1' })
+    dashboards = [dashboard]
+    datastoreSpy = jasmine.createSpyObj('DatastoreService', ['findAll', 'createRecord', 'deleteRecord'])
     datastoreSpy.findAll.and.returnValue(of(new JsonApiQueryData(dashboards)))
 
     const unsavedDash = new Dashboard(datastoreSpy)
     datastoreSpy.createRecord.and.returnValue(unsavedDash)
     spyOn(unsavedDash, 'save').and.returnValue(of(dashboard))
+
+    datastoreSpy.deleteRecord.and.returnValue(of({} as Response))
 
     organizationServiceSpy = jasmine.createSpyObj('OrganizationService', ['fetchCurrent'])
     organizationServiceSpy.fetchCurrent.and.returnValue(of(currentOrg))
@@ -84,6 +86,16 @@ describe('DashboardService', () => {
     })
   })
 
+  describe('remove(dashboardId: string)', () => {
+    it('removes dashboard from dashboard state', () => {
+      service.add(dashboard)
+      const dash2 = new Dashboard(datastoreSpy, { name: 'bro' })
+      service.add(dash2)
+      service.remove(dashboard.id)
+      expect(service.dashboards).toEqual([dash2])
+    })
+  })
+
   describe('create(params: DashboardCreateParams)', () => {
     beforeEach(() => spyOn(service, 'add'))
 
@@ -98,6 +110,15 @@ describe('DashboardService', () => {
         }
       })
       expect(service.add).toHaveBeenCalledWith(dashboard)
+    })
+  })
+
+  describe('destroy(id: string)', () => {
+    beforeEach(() => spyOn(service, 'remove'))
+    fit('should destroy the dashboard and remove from state', () => {
+      service.destroy(dashboard.id).subscribe()
+      expect(datastoreSpy.deleteRecord).toHaveBeenCalledWith(Dashboard, dashboard.id)
+      expect(service.remove).toHaveBeenCalledWith(dashboard.id)
     })
   })
 })
