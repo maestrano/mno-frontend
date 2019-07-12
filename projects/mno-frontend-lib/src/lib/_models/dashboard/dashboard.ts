@@ -9,7 +9,7 @@ export class Dashboard extends JsonApiModel {
   static gridOptions = {}
 
   @Attribute() name: string
-  @Attribute() settings: { currency: string }
+  @Attribute() settings: { currency: string, organization_ids: string[] }
   @Attribute() owner_type: string
   @Attribute() owner_id: string
   @Attribute() organization_ids: string[]
