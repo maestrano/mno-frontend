@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http'
 import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { JsonApiModule } from 'angular2-jsonapi'
+import { NgSelectModule } from '@ng-select/ng-select'
 
 import { FrontendLibConfigService, FrontendLibConfig } from './frontend-lib-config.service'
 
@@ -38,6 +39,7 @@ import {
     CommonModule,
     HttpClientModule,
     FormsModule,
+    NgSelectModule,
     NgbModule,
     JsonApiModule
   ],

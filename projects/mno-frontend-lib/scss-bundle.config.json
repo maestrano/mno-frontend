@@ -1,0 +1,4 @@
+{
+  "entry": "./projects/mno-frontend-lib/src/lib/theming/base.scss",
+  "dest": "dist/mno-frontend-lib/_theming.scss"
+}
