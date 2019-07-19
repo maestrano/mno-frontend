@@ -1,6 +1,6 @@
 import { fakeAsync, tick } from '@angular/core/testing'
 import { Observable, Subscription, BehaviorSubject } from 'rxjs'
-import { finalize } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators'
 
 
 // For methods that return behaviour subjects / subjects that are not completed, and continually

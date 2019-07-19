@@ -1,0 +1,17 @@
+<ng-select
+  [multiple]="true"
+  [closeOnSelect]="false"
+  [searchable]="true"
+  [clearable]="canRemoveOrgs()"
+  [clearOnBackspace]="canRemoveOrgs()"
+  [(ngModel)]="selectedOrgs"
+  (change)="onChange($event)"
+>
+  <ng-option *ngFor="let item of organizations; let i = index" [value]="item" [disabled]="disabledOption(item.uid)">
+    {{item.name}}
+  </ng-option>
+  <ng-template ng-label-tmp let-item="item" let-clear="clear">
+    <span *ngIf="canRemoveOrgs()" class="ng-value-icon left" (click)="clear(item)" aria-hidden="true">×</span>
+    <span class="ng-value-label">{{item.name}}</span>
+  </ng-template>
+</ng-select>

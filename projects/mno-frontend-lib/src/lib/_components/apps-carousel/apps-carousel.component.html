@@ -1,22 +1,11 @@
-<div class="d-flex align-items-center apps-carousel-container">
+<div class="d-flex align-items-center justify-content-center position-relative">
   <mno-loading-spinner *ngIf="loading;else loaded"></mno-loading-spinner>
-  <ng-template #loaded>
-    <div class="arrow text-right flex-grow-1" [ngClass]="{'text-muted': !canShiftLeft()}">
-      <i class="fa fa-chevron-left" (click)="shiftLeft()"></i>
-    </div>
-    <div class="apps-cards d-flex">
-      <div *ngFor="let app of visibleCards()" class="card" (click)="onClick(app)">
-        <div class="card-body">
-          <i [ngClass]="{'fa fa-plus-circle': app.add}"></i>
-          <img *ngIf="app.product" class="logo" [src]="app.product.logo" alt="{{app.product.name}}">
-        </div>
-      </div>
-      <div *ngFor="let i of emptyCards()" class="card muted">
-        <div class="card-body"></div>
-      </div>
-    </div>
-    <div class="arrow text-left text-muted flex-grow-1" [ngClass]="{'text-muted': !canShiftRight()}">
-      <i class="fa fa-chevron-right" (click)="shiftRight()"></i>
-    </div>
-  </ng-template>
 </div>
+<ng-template #loaded>
+  <mno-cards-carousel [items]="apps" (clicked)="onAppClick($event)">
+    <ng-template let-item>
+      <i class="add-icon" [ngClass]="{'fa fa-plus-circle': item.add}"></i>
+      <img *ngIf="item.product" class="logo" [src]="item.product.logo" alt="{{item.product.name}}">
+    </ng-template>
+  </mno-cards-carousel>
+</ng-template>

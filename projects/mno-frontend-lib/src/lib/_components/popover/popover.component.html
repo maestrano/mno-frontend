@@ -1,0 +1,9 @@
+<div #ref class="popover-container">
+  <div class="handle" [class.disabled]="disabled" (click)="setOpen(!open)">
+    <ng-content select="[selector]"></ng-content>
+  </div>
+  <div class="content" *ngIf="!disabled && open" [style.min-width]="minWidth" (click)="sticky || setOpen(false)">
+    <ng-content select="[content]"></ng-content>
+    <div class="pointer"></div>
+  </div>
+</div>

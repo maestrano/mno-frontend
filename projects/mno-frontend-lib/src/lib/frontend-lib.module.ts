@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http'
 import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { JsonApiModule } from 'angular2-jsonapi'
+import { NgSelectModule } from '@ng-select/ng-select'
 
 import { FrontendLibConfigService, FrontendLibConfig } from './frontend-lib-config.service'
 
@@ -12,6 +13,7 @@ import {
   AuthenticationService,
   UserService,
   ProductService,
+  DashboardService
 } from './_services'
 
 import {
@@ -26,7 +28,12 @@ import {
   ProductPricingPlansComponent,
   AddProductButtonComponent,
   LoadingSpinnerComponent,
-  AppsCarouselComponent
+  CardsCarouselComponent,
+  AppsCarouselComponent,
+  PopoverComponent,
+  InfoBackdropModalComponent,
+  OrganizationsPickerComponent,
+  CurrenciesPickerComponent
 } from './_components'
 
 @NgModule({
@@ -34,6 +41,7 @@ import {
     CommonModule,
     HttpClientModule,
     FormsModule,
+    NgSelectModule,
     NgbModule,
     JsonApiModule
   ],
@@ -49,7 +57,12 @@ import {
     LoadingSpinnerComponent,
     ProductKeyBenefitsComponent,
     ProductPricingPlansComponent,
-    AppsCarouselComponent
+    CardsCarouselComponent,
+    AppsCarouselComponent,
+    PopoverComponent,
+    InfoBackdropModalComponent,
+    OrganizationsPickerComponent,
+    CurrenciesPickerComponent,
   ],
   exports: [
     LoginBoxComponent,
@@ -60,12 +73,18 @@ import {
     ImageCarouselComponent,
     AddProductButtonComponent,
     LoadingSpinnerComponent,
-    AppsCarouselComponent
+    CardsCarouselComponent,
+    AppsCarouselComponent,
+    PopoverComponent,
+    InfoBackdropModalComponent,
+    OrganizationsPickerComponent,
+    CurrenciesPickerComponent
   ],
   providers: [
     AuthenticationService,
     UserService,
-    ProductService
+    ProductService,
+    DashboardService
   ]
 })
 export class MnoFrontendLibModule {

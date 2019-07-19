@@ -3,7 +3,10 @@ import { InjectionToken } from '@angular/core'
 // When marking interface props as optional, make sure defaults are defined in
 // the MnoFrontendLibModule.forRoot().
 export interface FrontendLibConfig {
-  currency: string,
+  currency: {
+    default: string,
+    supported: string[]
+  },
   urls: {
     auth: {
       currentUser: string

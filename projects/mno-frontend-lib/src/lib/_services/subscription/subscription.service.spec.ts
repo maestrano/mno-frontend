@@ -4,17 +4,17 @@ import { SubscriptionService } from './subscription.service'
 import { DatastoreService } from '../datastore/datastore.service'
 import { Subscription, Product, User, Organization, ProductPricing } from '../../_models'
 import { of } from 'rxjs'
-import { itFinalizesObservable } from 'projects/mno-frontend-lib/testing/shared-examples';
+import { itFinalizesObservable } from 'projects/mno-frontend-lib/testing/shared-examples'
 
 describe('SubscriptionService', () => {
   let datastoreSpy: jasmine.SpyObj<DatastoreService>
   let service: SubscriptionService
-  const product = new Product(undefined, { id: '1' })
-  const user = new User(undefined, { id: '1' })
-  const organization = new Organization(undefined, { id: '1' })
-  const product_pricing = new ProductPricing(undefined, { id: '1' })
-  const unsavedSub = new Subscription(undefined, undefined)
-  const sub = new Subscription(undefined, { id: '1' })
+  const product = new Product(datastoreSpy, { id: '1' })
+  const user = new User(datastoreSpy, { id: '1' })
+  const organization = new Organization(datastoreSpy, { id: '1' })
+  const product_pricing = new ProductPricing(datastoreSpy, { id: '1' })
+  const unsavedSub = new Subscription(datastoreSpy)
+  const sub = new Subscription(datastoreSpy, { id: '1' })
 
   beforeEach(() => {
     datastoreSpy = jasmine.createSpyObj('DatastoreService', ['createRecord', 'findRecord'])

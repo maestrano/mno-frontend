@@ -1,0 +1,16 @@
+<div class="arrow text-right flex-grow-1" [ngClass]="{'text-muted': !canShiftLeft()}">
+  <i class="fa fa-chevron-left" (click)="shiftLeft()"></i>
+</div>
+<div #cardsRef class="cards d-flex">
+  <div *ngFor="let item of visibleCards()" class="card" [ngStyle]="cardStyles" (click)="onClick(item)">
+    <div class="card-body">
+      <ng-template [ngTemplateOutlet]="templateRef" [ngTemplateOutletContext]="{$implicit: item}"></ng-template>
+    </div>
+  </div>
+  <div *ngFor="let i of emptyCards()" class="card muted" [ngStyle]="cardStyles">
+    <div class="card-body"></div>
+  </div>
+</div>
+<div class="arrow text-left text-muted flex-grow-1" [ngClass]="{'text-muted': !canShiftRight()}">
+  <i class="fa fa-chevron-right" (click)="shiftRight()"></i>
+</div>

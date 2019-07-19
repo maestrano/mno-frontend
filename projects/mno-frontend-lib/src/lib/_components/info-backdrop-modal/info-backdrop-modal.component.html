@@ -1,0 +1,12 @@
+<mno-modal [width]="width" [height]="height" (closed)="onClosed()">
+  <div class="backdrop" [style.background]="backdropColor">
+    <div class="info">
+      <ng-content select="[info]"></ng-content>
+    </div>
+    <div class="main-container">
+      <div class="main">
+        <ng-content select="[main]"></ng-content>
+      </div>
+    </div>
+  </div>
+</mno-modal>

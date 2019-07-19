@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter, HostListener } from '@angular/core'
+import { Component, OnInit, OnDestroy, Output, EventEmitter, HostListener, Input } from '@angular/core'
 
 @Component({
   selector: 'mno-modal',
@@ -6,6 +6,8 @@ import { Component, OnInit, OnDestroy, Output, EventEmitter, HostListener } from
   styleUrls: ['./modal.component.scss']
 })
 export class ModalComponent implements OnInit, OnDestroy {
+  @Input() width = '90%'
+  @Input() height = '90%'
   @Output() closed = new EventEmitter<void>()
 
   @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {

@@ -19,7 +19,6 @@ export class AppsCarouselComponent implements OnInit, OnDestroy {
   @Input() addAppNavigatePath: string
 
   public apps: App[] = []
-  public indexStart = 0
   public loading = true
 
   private subs: Subscription[]
@@ -44,32 +43,11 @@ export class AppsCarouselComponent implements OnInit, OnDestroy {
     this.subs.forEach(s => s.unsubscribe())
   }
 
-  public visibleCards(): App[] {
-    return this.apps.slice(this.indexStart, this.indexStart + this.max)
-  }
+  public onAppClick(app: App) {
+    if (app.add) this.router.navigate([this.addAppNavigatePath])
 
-  public emptyCards(): any[] {
-    const count = this.max - this.apps.length
-    return new Array(count >= 0 ? count : 0)
-  }
-
-  public canShiftRight(): boolean {
-    return (this.indexStart + this.max) < this.apps.length
-  }
-
-  public shiftRight() {
-    if (this.canShiftRight()) this.indexStart++
-  }
-
-  public canShiftLeft(): boolean {
-    return this.indexStart > 0
-  }
-
-  public shiftLeft() {
-    if (this.canShiftLeft()) this.indexStart--
-  }
-
-  public onClick(app: App) {
-    app.add ? this.router.navigate([this.addAppNavigatePath]) : this.productProvisioningService.redirectToApp(app as ProductInstance)
+    app.isConnected()
+      ? this.productProvisioningService.redirectToApp(app as ProductInstance)
+      : this.productProvisioningService.redirectForConnection(app as ProductInstance)
   }
 }

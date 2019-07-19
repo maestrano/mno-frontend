@@ -51,6 +51,13 @@ describe('UserService', () => {
       service.user = { ...user } as User
     })
 
+    it('should cache the observable result', () => {
+      service.fetch().subscribe()
+      service.fetch().subscribe()
+      service.fetch().subscribe()
+      expect(datastoreSpy.findRecord).toHaveBeenCalledTimes(1)
+    })
+
     describe('when the user is logged out', () => {
       beforeEach(() => authenticationServiceSpy.fetchCurrentUserId.and.returnValue(of(null)))
 

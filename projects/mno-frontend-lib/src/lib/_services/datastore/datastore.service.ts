@@ -11,6 +11,7 @@ import {
   ProductAsset,
   ProductPricing,
   SyncStatus,
+  Dashboard
 } from '../../_models'
 import { Subscription } from '../../_models/subscription/subscription'
 
@@ -27,6 +28,7 @@ const config: DatastoreConfig = {
     fields: ProductValueField,
     assets: ProductAsset,
     sync_statuses: SyncStatus,
+    dashboards: Dashboard
   }
 }
 
