@@ -12,7 +12,7 @@ import { FrontendLibConfigService } from '../../frontend-lib-config.service'
 
 describe('DashboardService', () => {
   const libConfigStub = {
-    currency: 'AUD'
+    currency: { default: 'AUD' }
   }
   let service: DashboardService
   let datastoreSpy: jasmine.SpyObj<DatastoreService>
@@ -106,7 +106,7 @@ describe('DashboardService', () => {
         owner: user,
         organization_ids: [currentOrg.uid],
         settings: {
-          currency: libConfigStub.currency
+          currency: libConfigStub.currency.default
         }
       })
       expect(service.add).toHaveBeenCalledWith(dashboard)
@@ -115,7 +115,7 @@ describe('DashboardService', () => {
 
   describe('destroy(id: string)', () => {
     beforeEach(() => spyOn(service, 'remove'))
-    fit('should destroy the dashboard and remove from state', () => {
+    it('should destroy the dashboard and remove from state', () => {
       service.destroy(dashboard.id).subscribe()
       expect(datastoreSpy.deleteRecord).toHaveBeenCalledWith(Dashboard, dashboard.id)
       expect(service.remove).toHaveBeenCalledWith(dashboard.id)

@@ -32,7 +32,8 @@ import {
   AppsCarouselComponent,
   PopoverComponent,
   InfoBackdropModalComponent,
-  OrganizationsPickerComponent
+  OrganizationsPickerComponent,
+  CurrenciesPickerComponent
 } from './_components'
 
 @NgModule({
@@ -61,6 +62,7 @@ import {
     PopoverComponent,
     InfoBackdropModalComponent,
     OrganizationsPickerComponent,
+    CurrenciesPickerComponent,
   ],
   exports: [
     LoginBoxComponent,
@@ -75,7 +77,8 @@ import {
     AppsCarouselComponent,
     PopoverComponent,
     InfoBackdropModalComponent,
-    OrganizationsPickerComponent
+    OrganizationsPickerComponent,
+    CurrenciesPickerComponent
   ],
   providers: [
     AuthenticationService,

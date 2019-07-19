@@ -15,7 +15,6 @@ export class ProductPricingPlansComponent implements OnInit {
   constructor(@Inject(FrontendLibConfigService) private libConfig: FrontendLibConfig) { }
 
   ngOnInit() {
-    this.appCurrency = this.libConfig.currency
+    this.appCurrency = this.libConfig.currency.default
   }
 }
-

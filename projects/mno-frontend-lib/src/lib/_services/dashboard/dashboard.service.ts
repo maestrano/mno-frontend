@@ -60,7 +60,7 @@ export class DashboardService {
         const attrs = {
           owner: user,
           organization_ids: [org.uid],
-          settings: { currency: this.libConfig.currency },
+          settings: { currency: this.libConfig.currency.default },
           ...params
         }
         return this.datastore.createRecord(Dashboard, attrs).save().pipe(
